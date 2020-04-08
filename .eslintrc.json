@@ -1,0 +1,14 @@
+{
+  "env": {
+    "browser": false,
+    "es6": true
+  },
+  "extends": ["airbnb-base", "prettier"],
+  "parser": "babel-eslint",
+  "rules": {
+    "semi": [0, "always"],
+    "no-console": 0,
+    "class-methods-use-this": 0,
+    "no-param-reassign" : 0
+  }
+}
