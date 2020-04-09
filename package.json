@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "A mofumofu server for online chat!",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/symant233/mofuServer.git"
@@ -20,11 +17,17 @@
     "url": "https://github.com/symant233/mofuServer/issues"
   },
   "homepage": "https://github.com/symant233/mofuServer",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production nodemon -r esm server/",
+    "serv": "cross-env NODE_ENV=development nodemon -r esm server/",
+    "test": "cross-env NODE_ENV=development node -r esm test/"
+  },
   "dependencies": {
     "esm": "^3.2.25",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
+    "koa-helmet": "^5.2.0",
     "koa-jwt": "^3.6.0",
     "koa-logger": "^3.2.1",
     "koa-multer": "^1.0.2",
