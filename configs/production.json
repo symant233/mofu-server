@@ -1,0 +1,12 @@
+{
+  "port": 3000,
+  "api_prefix": "api",
+  "api_version": "",
+  "jwt_secret": "",
+  "mongo_url": "",
+  "redis": {
+    "host": "",
+    "port": "",
+    "passwd": ""
+  }
+}
