@@ -3,7 +3,7 @@ import auth from './auth';
 
 const routes = [users, auth];
 
-export default function (app) {
+function routing(app) {
   routes.forEach((route) => {
     app.use(route.routes()).use(
       route.allowedMethods({
@@ -12,3 +12,5 @@ export default function (app) {
     );
   });
 }
+
+export default routing;

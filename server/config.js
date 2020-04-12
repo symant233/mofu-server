@@ -9,11 +9,11 @@ const config = {
   apiPrefix: file.api_prefix,
   apiVersion: file.api_version,
   jwtKey: file.jwt_key,
-  mongoURI: `mongodb://${file.mongo_url}`,
-  redisURI: {
+  mongoURL: `mongodb://${file.mongo_url}`,
+  redisURL: {
     host: file.redis.host,
     port: file.redis.port,
-    password: file.redis.password,
+    passwd: file.redis.passwd,
   },
 };
 

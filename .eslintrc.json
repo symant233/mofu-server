@@ -9,6 +9,8 @@
     "semi": [0, "always"],
     "no-console": 0,
     "class-methods-use-this": 0,
-    "no-param-reassign" : 0
+    "no-param-reassign" : 0,
+    // https://eslint.org/docs/2.0.0/rules/no-underscore-dangle
+    "no-underscore-dangle": [2, { "allow": ["_id"] }]
   }
 }

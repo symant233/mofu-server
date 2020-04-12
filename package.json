@@ -18,9 +18,9 @@
   },
   "homepage": "https://github.com/symant233/mofu-server",
   "scripts": {
-    "start": "cross-env NODE_ENV=production nodemon -r esm server/",
-    "serv": "cross-env NODE_ENV=development nodemon -r esm server/",
-    "test": "cross-env NODE_ENV=development node -r esm test/"
+    "prod": "cross-env NODE_ENV=production nodemon -r esm server/",
+    "dev": "cross-env NODE_ENV=development nodemon -r esm server/",
+    "test": "cross-env NODE_ENV=development node -r esm others/test.js"
   },
   "dependencies": {
     "esm": "^3.2.25",
@@ -29,6 +29,7 @@
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
     "koa-helmet": "^5.2.0",
+    "koa-json-error": "^3.1.2",
     "koa-jwt": "^3.6.0",
     "koa-logger": "^3.2.1",
     "koa-multer": "^1.0.2",
