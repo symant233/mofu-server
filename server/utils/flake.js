@@ -1,5 +1,6 @@
 import Random from './random';
 
+/** Refer: docs/utils#flake */
 export default class Flake {
   /**
    * @param {*} opts
@@ -8,19 +9,7 @@ export default class Flake {
   constructor(opts = {}) {
     const { machine, EPOCH } = opts;
     this.machine = machine || 0;
-    this.EPOCH = EPOCH || 1900;
-  }
-
-  getTime() {
-    var now = new Date(),
-      month = '' + (now.getMonth() + 1),
-      day = '' + now.getDate(),
-      year = now.getFullYear() - this.EPOCH;
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('');
+    this.EPOCH = EPOCH || 2010;
   }
 
   /**
@@ -30,8 +19,10 @@ export default class Flake {
   generate() {
     let result = '';
     const now = new Date();
-    result += this.getTime();
-    result += Random.getMultiInt(4);
+
+    result += now.getFullYear() - this.EPOCH;
+    result += Random.getMultiInt(6);
+    result += now.getMilliseconds();
     // result += this.machine;
     return result;
   }
