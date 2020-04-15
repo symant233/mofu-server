@@ -1,15 +1,14 @@
-import users from './users';
+import { apiPrefix, apiVersion } from '../config';
 import auth from './auth';
 
-const routes = [users, auth];
+const routers = [auth];
 
 function routing(app) {
-  routes.forEach((route) => {
-    app.use(route.routes()).use(
-      route.allowedMethods({
-        throw: true,
-      })
-    );
+  routers.forEach((router) => {
+    // add router prefix for all routers
+    router.prefix(`/${apiPrefix}/${apiVersion}`);
+    router.allowedMethods({ throw: true });
+    app.use(router.routes());
   });
 }
 

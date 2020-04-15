@@ -1,20 +1,19 @@
-import jsonfile from 'jsonfile';
+const jsonfile = require('jsonfile');
 
 const filename = process.env.NODE_ENV || 'development';
-
 const file = jsonfile.readFileSync(`./configs/${filename}.json`);
 
-const config = {
+const config = Object.freeze({
   port: process.env.PORT || file.port,
   apiPrefix: file.api_prefix,
   apiVersion: file.api_version,
-  jwtKey: file.jwt_key,
+  jwtSecret: file.jwt_secret,
   mongoURL: `mongodb://${file.mongo_url}`,
   redisURL: {
     host: file.redis.host,
     port: file.redis.port,
     passwd: file.redis.passwd,
   },
-};
+});
 
-export default config;
+module.exports = config;

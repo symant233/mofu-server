@@ -29,8 +29,6 @@
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
     "koa-helmet": "^5.2.0",
-    "koa-json-error": "^3.1.2",
-    "koa-jwt": "^3.6.0",
     "koa-logger": "^3.2.1",
     "koa-multer": "^1.0.2",
     "koa-router": "^8.0.8",
