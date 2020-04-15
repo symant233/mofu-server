@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import config from '../server/config';
+import { mongoURL } from '../server/config';
 
 class Mongo {
   connect(url, callback) {
@@ -8,7 +8,7 @@ class Mongo {
       if (!err) {
         console.log(`✅ MongoDB connected.`);
       } else {
-        console.log(`❌ MongoDB connect failed: ${err.message}.`);
+        console.log(`❌ MongoDB connect failed: ${err.name}.`);
         return;
       }
       this.mongo = this.client.db();
@@ -23,7 +23,7 @@ class Mongo {
 }
 
 const db = new Mongo();
-db.connect(config.mongoURL, () => {
+db.connect(mongoURL, () => {
   // create collections and indexes
   db.mongo.createCollection('users');
 });

@@ -14,6 +14,7 @@ const config = Object.freeze({
     port: file.redis.port,
     passwd: file.redis.passwd,
   },
+  machine: file.machine,
 });
 
 module.exports = config;

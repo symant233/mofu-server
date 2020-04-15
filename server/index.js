@@ -4,7 +4,7 @@ import helmet from 'koa-helmet';
 import routing from './routes';
 import koaBody from 'koa-body';
 import { port, mongoURL } from './config';
-import db from '../utils/mongo';
+import db from './utils/mongo';
 import fs from 'fs';
 
 db.connect(mongoURL);
@@ -20,9 +20,9 @@ app.use((ctx, next) => {
   return next();
 });
 app.use(logger());
-app.use(helmet());
+app.use(helmet()); // 安全机制
 app.use(helmet.hidePoweredBy({ setTo: 'mofu-sever' }));
-app.use(koaBody());
+app.use(koaBody()); // 支持json请求数据
 
 routing(app);
 

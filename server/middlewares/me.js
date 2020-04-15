@@ -1,0 +1,1 @@
+import { jwtSecret } from '../config';

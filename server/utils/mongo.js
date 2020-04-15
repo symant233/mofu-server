@@ -7,7 +7,7 @@ class Mongo {
       if (!err) {
         console.log(`✅ MongoDB connected.`);
       } else {
-        console.log(`❌ MongoDB connect failed: ${err.message}.`);
+        console.log(`❌ MongoDB connect failed: ${err.name}.`);
         return;
       }
       this.mongo = this.client.db();

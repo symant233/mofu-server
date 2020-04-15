@@ -1,6 +1,11 @@
 ### Koa
 https://github.com/koajs/koa/blob/master/docs/api/context.md
 
+### koa-jwt 
+见 server/middlewares/jwt.js
+
+https://github.com/koajs/jwt#retrieving-the-token
+
 ### jsonwebtoken
 https://www.npmjs.com/package/jsonwebtoken
 
@@ -17,6 +22,13 @@ jwt.verify(token, 'mofumofu');
 jwt.verify(token, 'aaaa');
 // ERROR{ name: 'JsonWebTokenError', message: 'invalid signature' }
 
-// expire
+// expire 
 jwt.sign({ id: 1234 }, 'mofumofu', { expiresIn: '45 days' })
+
+// use try-catch
+try {
+  const token = jwt.verify(token, 'mofumofu');
+} catch (err) {
+  console.log(err.message);
+}
 ```
