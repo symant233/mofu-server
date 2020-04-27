@@ -2,6 +2,7 @@ import Basic from './basic';
 
 export default class Member extends Basic {
   constructor(data = {}) {
+    super(data);
     this.id = data.id;
     this.group = data.group;
     this.type = data.type;

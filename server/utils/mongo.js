@@ -11,8 +11,15 @@ class Mongo {
         return;
       }
       this.mongo = this.client.db();
+      await this.createIndexes();
     });
   }
+
+  async createIndexes() {
+    let rs;
+    rs = await this.mongo.collection('users').createIndex({ email: 1 });
+  }
+
   close() {
     this.client.close();
   }

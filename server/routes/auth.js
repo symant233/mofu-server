@@ -5,10 +5,10 @@ import AuthController from '../controllers/auth';
 const router = new Router();
 router.prefix('/auth');
 
-router.get('register', '/register', AuthController.register);
+router.post('register', '/register', AuthController.register);
 
 router.get('detail', '/detail', jwt, AuthController.detail);
 
-router.get('login', '/login', AuthController.handleLogin);
+router.post('login', '/login', AuthController.handleLogin);
 
 export default router;

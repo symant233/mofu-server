@@ -2,6 +2,7 @@ import Basic from './basic';
 
 export default class Group extends Basic {
   constructor(data = {}) {
+    super(data);
     this.id = data.id;
     this.name = data.name;
     this.notes = data.notes;

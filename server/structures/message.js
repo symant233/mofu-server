@@ -2,6 +2,7 @@ import Basic from './basic';
 
 export default class Message extends Basic {
   constructor(data = {}) {
+    super(data);
     this.id = data.id;
     this.channel = data.channel;
     this.type = data.type;

@@ -9,7 +9,7 @@ export default class Flake {
   constructor(opts = {}) {
     const { machine, EPOCH } = opts;
     this.machine = machine || 0;
-    this.EPOCH = EPOCH || 2010;
+    this.EPOCH = EPOCH || 1577750400000; // 2019-12-31
   }
 
   /**
@@ -20,9 +20,8 @@ export default class Flake {
     let result = '';
     const now = new Date();
 
-    result += now.getFullYear() - this.EPOCH;
-    result += Random.getMultiInt(6);
-    result += now.getMilliseconds();
+    result += now.getTime() - this.EPOCH;
+    result += Random.getMultiInt(3);
     // result += this.machine;
     return result;
   }
