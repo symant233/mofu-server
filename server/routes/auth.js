@@ -9,4 +9,6 @@ router.get('register', '/register', AuthController.register);
 
 router.get('detail', '/detail', jwt, AuthController.detail);
 
+router.get('login', '/login', AuthController.handleLogin);
+
 export default router;
