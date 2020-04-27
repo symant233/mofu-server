@@ -1,6 +1,6 @@
 Database Objects
-
-avater: String link
+`server/structures`
+avatar: String link
 id: Flake String id
 
 ```js
@@ -12,12 +12,13 @@ Users {
   status: Integer,
   notes: String,
   since: Timestamp,
-  avater: String,
+  avatar: String,
 }
 
 Relations {
   id: Flake, // also DM channel id
   users: Array,
+  type: Integer, // relation type
   since: Timestamp,
 }
 
@@ -28,7 +29,7 @@ Groups {
   owner: Flake,
   limit: Integer,
   since: Timestamp,
-  avater: String,
+  avatar: String,
 }
 
 Members {
@@ -41,8 +42,8 @@ Members {
 
 Messages {
   id: Flake,
-  type: Integer, // Group or DM message
   channel: Flake, // Group or DM id
+  type: Integer, // Group or DM message
   author: Flake,
   content: String,
   timestamp: Timestamp,
