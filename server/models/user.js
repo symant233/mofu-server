@@ -1,6 +1,6 @@
-import Basic from './basic';
+import BaseModel from './base';
 
-export default class User extends Basic {
+export default class UserModel extends BaseModel {
   constructor(data = {}) {
     super(data);
     this.id = data.id;
@@ -13,8 +13,9 @@ export default class User extends Basic {
     this.avatar = data.avatar || null;
   }
 
+  // hide email & passwd
   static projection = {
-    ...Basic.projection,
+    ...BaseModel.projection,
     nick: 1,
     status: 1,
     notes: 1,

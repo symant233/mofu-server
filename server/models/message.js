@@ -1,6 +1,6 @@
-import Basic from './basic';
+import BaseModel from './base';
 
-export default class Message extends Basic {
+export default class MessageModel extends BaseModel {
   constructor(data = {}) {
     super(data);
     this.id = data.id;
@@ -12,7 +12,7 @@ export default class Message extends Basic {
   }
 
   static projection = {
-    ...Basic.projection,
+    ...BaseModel.projection,
     channel: 1,
     type: 1,
     author: 1,

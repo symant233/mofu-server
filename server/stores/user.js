@@ -1,16 +1,19 @@
 import db from '../utils/mongo';
-import UserModel from '../structures/user';
+import UserModel from '../models/user';
 import Flake from '../utils/flake';
 import crypto from 'crypto';
 
 class UserStore {
   /**
-   * @param {*} id Flake
+   * @param {*} userId Flake
    */
-  find = async (id) => {
+  find = async (userId) => {
     const cursor = db.mongo
       .collection('users')
-      .aggregate([{ $match: { _id: id } }, { $project: UserModel.projection }]);
+      .aggregate([
+        { $match: { _id: userId } },
+        { $project: UserModel.projection },
+      ]);
     let result;
     if (await cursor.hasNext()) {
       const user = await cursor.next();
@@ -35,9 +38,7 @@ class UserStore {
   };
 
   insert = async (email, passwd, nick) => {
-    const flake = new Flake();
-    const id = flake.generate();
-    // TODO: id 重复检测
+    const id = Flake.generate();
     const hash = crypto.createHash('sha256');
     hash.update(passwd);
     const now = new Date();
@@ -48,15 +49,13 @@ class UserStore {
       nick,
       since: now,
     });
-    if (rs.result.ok) {
-      return new UserModel({
-        id,
-        email,
-        nick,
-        since: now,
-      });
-    }
-    return undefined;
+    if (!rs.result.ok) return undefined;
+    return new UserModel({
+      id,
+      email,
+      nick,
+      since: now,
+    });
   };
 
   verifyPasswd = async (email, passwd) => {
@@ -64,6 +63,11 @@ class UserStore {
     const hash = crypto.createHash('sha256');
     hash.update(passwd);
     return user.passwd === hash.digest('hex');
+  };
+
+  destroy = async (userId) => {
+    const rs = await db.mongo.collection('users').deleteOne({ _id: userId });
+    return rs.result.ok;
   };
 }
 

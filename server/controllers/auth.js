@@ -1,11 +1,15 @@
 import jwt from 'jsonwebtoken';
-import Flake from '../utils/flake';
 import { jwtSecret } from '../config';
 import UserStore from '../stores/user';
+import camelcase from 'camelcase-keys';
 
 class AuthController {
   _sign = (id) => {
     return jwt.sign({ id }, jwtSecret);
+  };
+
+  _verify = (token) => {
+    return jwt.verify(token, jwtSecret);
   };
 
   register = async (ctx) => {
@@ -25,21 +29,13 @@ class AuthController {
     ctx.body = { ...user, token };
   };
 
-  detail = async (ctx) => {
-    // protected resource (jwt)
-    const id = ctx.state.user.id;
-    const user = await UserStore.find(id);
-    if (!user) ctx.throw(500, 'user not found');
-    ctx.body = user;
-  };
-
   handleLogin = async (ctx) => {
     let token = ctx.cookies.get('token');
     const { email, passwd } = ctx.request.body;
     let user;
     if (token) {
       try {
-        const decoded = jwt.verify(token, jwtSecret);
+        const decoded = this._verify(token);
         user = await UserStore.find(decoded.id);
       } catch (err) {
         ctx.thorw(400, 'invalid token');

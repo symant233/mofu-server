@@ -25,4 +25,14 @@ export default class Flake {
     // result += this.machine;
     return result;
   }
+
+  // default EPOCH
+  static generate() {
+    let result = '';
+    const now = new Date();
+    const EPOCH = 1577750400000;
+    result += now.getTime() - EPOCH;
+    result += Random.getMultiInt(3);
+    return result;
+  }
 }

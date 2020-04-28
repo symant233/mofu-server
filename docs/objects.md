@@ -1,13 +1,13 @@
 Database Objects
-`server/structures`
+`server/models`
 avatar: String link
 id: Flake String id
 
 ```js
 Users {
   id: Flake,
-  email: String,
-  passwd: String,
+  ^email: String,
+  ^passwd: String,
   nick: String,
   status: Integer,
   notes: String,
@@ -27,6 +27,7 @@ Groups {
   name: String,
   notes: String,
   owner: Flake,
+  popultaion: Integer,
   limit: Integer,
   since: Timestamp,
   avatar: String,

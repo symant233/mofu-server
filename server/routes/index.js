@@ -1,7 +1,9 @@
 import { apiPrefix, apiVersion } from '../config';
 import auth from './auth';
+import user from './user';
+import group from './group';
 
-const routers = [auth];
+const routers = [auth, user, group];
 
 function routing(app) {
   routers.forEach((router) => {

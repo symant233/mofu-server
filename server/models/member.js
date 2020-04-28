@@ -1,6 +1,6 @@
-import Basic from './basic';
+import BaseModel from './base';
 
-export default class Member extends Basic {
+export default class MemberModel extends BaseModel {
   constructor(data = {}) {
     super(data);
     this.id = data.id;
@@ -11,7 +11,7 @@ export default class Member extends Basic {
   }
 
   static projection = {
-    ...Basic.projection,
+    ...BaseModel.projection,
     group: 1,
     type: 1,
     stop: 1,
