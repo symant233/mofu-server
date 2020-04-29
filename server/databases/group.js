@@ -50,12 +50,16 @@ class GroupStore {
   /**
    * @param groupId
    * @returns boolean
-   * 销毁群组 同时删除组内 member
+   * 销毁群组
+   * 删除组内 member 需使用 MemberStore.groupDestroy
    */
   destroy = async (groupId) => {
     const rs = await db.mongo.collection('groups').deleteOne({ _id: groupId });
     return rs.result.ok;
   };
+
+  // TODO:
+  listMyGroups = async (userId) => {};
 }
 
 export default new GroupStore();

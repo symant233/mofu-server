@@ -38,7 +38,7 @@ class AuthController {
         const decoded = this._verify(token);
         user = await UserStore.find(decoded.id);
       } catch (err) {
-        ctx.thorw(400, 'invalid token');
+        ctx.throw(400, 'invalid token');
       }
     } else if (email) {
       const result = await UserStore.verifyPasswd(email, passwd);
@@ -47,7 +47,7 @@ class AuthController {
       token = this._sign(user.id);
       ctx.cookies.set('token', token);
     }
-    if (!user) ctx.thorw(500, 'login failed');
+    if (!user) ctx.throw(500, 'login failed');
     ctx.body = { ...user, token };
   };
 }

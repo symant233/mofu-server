@@ -81,18 +81,20 @@ class MemberStore {
 
   /**
    * @param groupId
-   * @returns members dict
+   * @returns members Array
    */
   listInGroup = async (groupId) => {
-    let members = [];
     const cursor = db.mongo
       .collection('members')
       .aggregate([
         { $match: { group: groupId } },
         { $project: MemberModel.projection },
       ]);
+    const members = [];
     while (await cursor.hasNext()) {
-      members.push(new MemberModel(await cursor.next()));
+      const data = await cursor.next();
+      console.log(data);
+      members.push(new MemberModel(data));
     }
     return members;
   };

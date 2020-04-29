@@ -30,6 +30,9 @@ class GroupController {
     if (!rs) ctx.throw(500, 'destroy group member failed');
     ctx.status = 204;
   };
+
+  // TODO:
+  listMyGroups = async (ctx) => {};
 }
 
 export default new GroupController();
