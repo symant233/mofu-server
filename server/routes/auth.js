@@ -2,17 +2,16 @@ import Router from 'koa-router';
 import AuthController from '../controllers/auth';
 
 const router = new Router();
-router.prefix('/auth');
 
 router.post(
   'register',
-  '/register',
+  '/auth/register',
   AuthController.register
 );
 
 router.post(
   'email & token login',
-  '/login',
+  '/auth/login',
   AuthController.handleLogin
 );
 

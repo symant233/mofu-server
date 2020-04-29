@@ -13,6 +13,11 @@ send email {
 status & notes update
 ```
 
+### group
+与用户聚合
+增加管理员数组
+管理员数量限制 (容量7%)
+
 ### utils
 ```
 validator

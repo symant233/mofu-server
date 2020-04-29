@@ -4,17 +4,17 @@ import Flake from '../utils/flake';
 
 class MemberStore {
   /**
-   * @param dict { memberId, userId, groupId }
+   * @param {*} dict { memberId }
+   * @param {*} dict { userId, groupId }
    * @returns member object
    */
   find = async ({ memberId, userId, groupId }) => {
     let condition;
     if (memberId) condition = { _id: memberId };
-    else if (userId) condition = { user: userId };
-    else if (groupId) condition = { group: groupId };
+    else if (userId && groupId) condition = { user: userId, group: groupId };
     else return undefined;
     let member = db.mongo.collection('members').findOne(condition);
-    member = new MemberModel.parse(member);
+    member = new MemberModel(member).parse();
     return member;
   };
 
