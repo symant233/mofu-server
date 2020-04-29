@@ -3,19 +3,18 @@ import MemberModel from '../models/member';
 import Flake from '../utils/flake';
 
 class MemberStore {
+  /**
+   * @param dict { memberId, userId, groupId }
+   * @returns member object
+   */
   find = async ({ memberId, userId, groupId }) => {
     let condition;
     if (memberId) condition = { _id: memberId };
     else if (userId) condition = { user: userId };
     else if (groupId) condition = { group: groupId };
     else return undefined;
-    const cursor = db.mongo
-      .collection('members')
-      .aggregate([{ $match: condition }, { $project: MemberModel.projection }]);
-    let member;
-    if (await cursor.hasNext()) {
-      member = new MemberModel(await cursor.next());
-    }
+    let member = db.mongo.collection('members').findOne(condition);
+    member = new MemberModel.parse(member);
     return member;
   };
 
@@ -24,7 +23,7 @@ class MemberStore {
    * @param groupId
    * @param type MemberType
    */
-  insert = async (userId, groupId, type) => {
+  create = async (userId, groupId, type) => {
     const id = Flake.generate();
     const now = new Date();
     const rs = await db.mongo.collection('members').insertOne({

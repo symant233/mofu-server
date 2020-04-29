@@ -18,7 +18,14 @@ router.post(
   'create group',
   '/',
   jwt, me,
-  GroupController.insert
+  GroupController.create
+)
+
+router.delete(
+  'destroy group',
+  '/:group/destroy',
+  jwt, me, group,
+  GroupController.destroy
 )
 
 export default router;

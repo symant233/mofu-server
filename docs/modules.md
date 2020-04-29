@@ -6,6 +6,11 @@ https://github.com/koajs/koa/blob/master/docs/api/context.md
 
 https://github.com/koajs/jwt#retrieving-the-token
 
+### koa-router
+https://github.com/koajs/router/blob/HEAD/API.md
+
+
+
 ### jsonwebtoken
 https://www.npmjs.com/package/jsonwebtoken
 

@@ -1,6 +1,5 @@
 import db from '../utils/mongo';
 import GroupModel from '../models/group';
-import MemberStore from './member';
 import Flake from '../utils/flake';
 
 class GroupStore {
@@ -26,7 +25,7 @@ class GroupStore {
    * @param name string
    * @param owner flake
    */
-  insert = async (name, owner) => {
+  create = async (name, owner) => {
     const id = Flake.generate();
     const now = new Date();
     const limit = this.LIMIT;
@@ -50,14 +49,12 @@ class GroupStore {
 
   /**
    * @param groupId
+   * @returns boolean
    * 销毁群组 同时删除组内 member
    */
   destroy = async (groupId) => {
-    let rs;
-    rs = await db.mongo.collection('groups').deleteOne({ _id: groupId });
-    if (!rs.result.ok) return false;
-    rs = await MemberStore.groupDestroy(groupId);
-    return rs; // 经调用返回布尔值
+    const rs = await db.mongo.collection('groups').deleteOne({ _id: groupId });
+    return rs.result.ok;
   };
 }
 

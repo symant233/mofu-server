@@ -38,7 +38,7 @@ class UserStore {
     return result;
   };
 
-  insert = async (email, passwd, nick) => {
+  create = async (email, passwd, nick) => {
     const id = Flake.generate();
     const hash = crypto.createHash('sha256');
     hash.update(passwd);

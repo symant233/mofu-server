@@ -11,7 +11,7 @@ class UserController {
     const { me } = ctx;
     const result = await UserStore.destroy(me.id);
     // TODO: 清除 member, relation
-    if (!result) ctx.throw(500, 'destroy faild');
+    if (!result) ctx.throw(500, 'destroy failed');
     ctx.status = 204;
   };
 

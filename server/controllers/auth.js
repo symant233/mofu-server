@@ -20,7 +20,7 @@ class AuthController {
     if (exist) ctx.throw(400, 'user exists');
 
     // 写入数据库
-    const user = await UserStore.insert(email, passwd, nick);
+    const user = await UserStore.create(email, passwd, nick);
     if (!user) ctx.throw(500, 'internal server error');
 
     // 返回 token 设置 cookies

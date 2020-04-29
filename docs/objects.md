@@ -1,7 +1,9 @@
-Database Objects
+### Database Objects
 `server/models`
 avatar: String link
+
 id: Flake String id
+
 
 ```js
 Users {
@@ -51,3 +53,5 @@ Messages {
   timestamp: Timestamp,
 }
 ```
+
+> 层次: stores 不能互相引入, controllers 同理.
