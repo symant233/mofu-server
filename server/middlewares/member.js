@@ -1,4 +1,4 @@
-import MemberStore from '../stores/member';
+import MemberStore from '../databases/member';
 
 export default async function member(ctx, next) {
   const member = await MemberStore.find(ctx.params.member);

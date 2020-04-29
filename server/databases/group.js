@@ -39,7 +39,6 @@ class GroupStore {
       since: now,
     });
     if (!rs.result.ok) return undefined;
-    // TODO: add member
     return new GroupModel({
       id,
       name,
@@ -47,6 +46,18 @@ class GroupStore {
       limit,
       since: now,
     });
+  };
+
+  /**
+   * @param groupId
+   * 销毁群组 同时删除组内 member
+   */
+  destroy = async (groupId) => {
+    let rs;
+    rs = await db.mongo.collection('groups').deleteOne({ _id: groupId });
+    if (!rs.result.ok) return false;
+    rs = await MemberStore.groupDestroy(groupId);
+    return rs; // 经调用返回布尔值
   };
 }
 

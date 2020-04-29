@@ -16,6 +16,8 @@ export default class UserModel extends BaseModel {
   // hide email & passwd
   static projection = {
     ...BaseModel.projection,
+    email: 0,
+    passwd: 0,
     nick: 1,
     status: 1,
     notes: 1,

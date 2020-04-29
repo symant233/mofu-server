@@ -4,6 +4,7 @@ export default class MemberModel extends BaseModel {
   constructor(data = {}) {
     super(data);
     this.id = data.id;
+    this.user = data.user;
     this.group = data.group;
     this.type = data.type;
     this.stop = data.stop;
@@ -12,6 +13,7 @@ export default class MemberModel extends BaseModel {
 
   static projection = {
     ...BaseModel.projection,
+    user: 1,
     group: 1,
     type: 1,
     stop: 1,

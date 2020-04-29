@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from '../config';
-import UserStore from '../stores/user';
+import UserStore from '../databases/user';
 import camelcase from 'camelcase-keys';
 
 class AuthController {
@@ -47,7 +47,7 @@ class AuthController {
       token = this._sign(user.id);
       ctx.cookies.set('token', token);
     }
-    if (!user) ctx.thorw(400, 'login failed');
+    if (!user) ctx.thorw(500, 'login failed');
     ctx.body = { ...user, token };
   };
 }

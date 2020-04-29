@@ -1,4 +1,4 @@
-import UserStore from '../stores/user';
+import UserStore from '../databases/user';
 
 export default async function user(ctx, next) {
   const user = await UserStore.find(ctx.params.user);

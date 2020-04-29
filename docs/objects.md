@@ -35,6 +35,7 @@ Groups {
 
 Members {
   id: Flake,
+  user: Flake,
   group: Flake,
   type: MemberType, // constants/member.js
   stop: Timestamp, // 禁言, 默认 null

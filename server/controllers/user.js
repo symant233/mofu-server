@@ -1,4 +1,4 @@
-import UserStore from '../stores/user';
+import UserStore from '../databases/user';
 
 class UserController {
   detail = async (ctx) => {

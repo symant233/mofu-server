@@ -1,4 +1,4 @@
-import GroupStore from '../stores/group';
+import GroupStore from '../databases/group';
 
 export default async function group(ctx, next) {
   const group = await GroupStore.find(ctx.params.group);
