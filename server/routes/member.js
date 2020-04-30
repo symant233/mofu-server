@@ -23,18 +23,11 @@ router.get(
 );
 
 router.delete(
-  'destroy member by user',
-  '/group/:group/user/:user',
-  jwt, me, group, user,
-  MemberController.destroy
-)
-
-router.delete(
   'destroy member by member',
   '/group/:group/member/:member',
   jwt, me, group, member,
   MemberController.destroy
-)
+);
 
 router.post(
   'request member',
@@ -48,6 +41,6 @@ router.patch(
   '/group/:group/member/:member',
   jwt, me, group, member,
   MemberController.accept
-)
+);
 
 export default router;

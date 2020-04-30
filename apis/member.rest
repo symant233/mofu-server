@@ -1,0 +1,12 @@
+# router member
+@base = http://localhost:3000/api/v1
+
+### 获取详情
+
+GET {{base}}/member/10474362079724/detail
+
+### 列出群组所有成员
+
+GET {{base}}/group/10474362077060/members
+
+###
