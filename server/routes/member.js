@@ -36,4 +36,18 @@ router.delete(
   MemberController.destroy
 )
 
+router.post(
+  'request member',
+  '/group/:group/',
+  jwt, me, group,
+  MemberController.request
+);
+
+router.patch(
+  'accept member',
+  '/group/:group/member/:member',
+  jwt, me, group, member,
+  MemberController.accept
+)
+
 export default router;

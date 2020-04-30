@@ -5,17 +5,15 @@ import routing from './routes';
 import koaBody from 'koa-body';
 import { port, mongoURL } from './config';
 import db from './utils/mongo';
-import fs from 'fs';
 
 db.connect(mongoURL);
-const banner = fs.readFileSync('./others/banner.txt', 'utf-8');
 const app = new Koa();
 
 app.use((ctx, next) => {
   // enable CORS http://stackoverflow.com/questions/49633157/ddg#49633526
   ctx.set('Access-Control-Allow-Origin', '*');
   if (ctx.request.path === '/') {
-    ctx.response.body = banner;
+    ctx.throw(403);
   }
   return next();
 });

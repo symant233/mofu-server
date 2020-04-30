@@ -1,0 +1,21 @@
+# router group
+@base = http://localhost:3000/api/v1
+
+### 创建群组
+
+POST {{base}}/group
+Content-Type: application/json
+
+{
+  "name": "My Group 1"
+}
+
+### 群组详情
+
+GET {{base}}/group/10474362077060/detail
+
+### 列出我的群组
+
+GET {{base}}/group/@me
+
+###

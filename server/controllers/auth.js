@@ -33,16 +33,9 @@ class AuthController {
     let token = ctx.cookies.get('token');
     const { email, passwd } = ctx.request.body;
     let user;
-    if (token) {
-      try {
-        const decoded = this._verify(token);
-        user = await UserStore.find(decoded.id);
-      } catch (err) {
-        ctx.throw(400, 'invalid token');
-      }
-    } else if (email) {
+    if (email && passwd) {
       const result = await UserStore.verifyPasswd(email, passwd);
-      if (!result) ctx.throw(400, 'wrong password');
+      if (!result) ctx.throw(400, 'email not registered or wrong password');
       user = await UserStore.findEmail(email);
       token = this._sign(user.id);
       ctx.cookies.set('token', token);

@@ -20,7 +20,7 @@
   "scripts": {
     "prod": "cross-env NODE_ENV=production nodemon -r esm server/",
     "dev": "cross-env NODE_ENV=development nodemon -r esm server/",
-    "test": "cross-env NODE_ENV=development node -r esm others/test.js"
+    "test": "cross-env NODE_ENV=development node -r esm tests/"
   },
   "dependencies": {
     "camelcase-keys": "^6.2.2",

@@ -1,0 +1,12 @@
+# router user
+@base = http://localhost:3000/api/v1
+
+### 用户详情
+
+GET {{base}}/user/10290909060497/detail
+
+### 我的详情
+
+GET {{base}}/user/@me/detail
+
+###

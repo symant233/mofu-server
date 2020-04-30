@@ -1,0 +1,26 @@
+# router auth
+@base = http://localhost:3000/api/v1
+# 使用注册或登入后会自动设置 cookie token
+
+### 用户登录
+
+POST {{base}}/auth/login
+content-type: application/json
+
+{
+	"email": "mofu@gmail.com",
+	"passwd": "mofumofu"
+}
+
+### 用户注册
+
+POST {{base}}/auth/register
+Content-Type: application/json
+
+{
+	"email": "mofu@gmail.com",
+	"passwd": "mofumofu",
+	"nick": "mofu"
+}
+
+###

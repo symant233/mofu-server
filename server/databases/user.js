@@ -61,6 +61,7 @@ class UserStore {
 
   verifyPasswd = async (email, passwd) => {
     const user = await db.mongo.collection('users').findOne({ email });
+    if (!user) return false;
     const hash = crypto.createHash('sha256');
     hash.update(passwd);
     return user.passwd === hash.digest('hex');

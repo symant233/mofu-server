@@ -23,7 +23,9 @@ class MemberController {
     ctx.body = rs;
   };
 
-  // TODO: request member
+  request = async (ctx) => {};
+
+  accept = async (ctx) => {};
 }
 
 export default new MemberController();

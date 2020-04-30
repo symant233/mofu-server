@@ -5,6 +5,7 @@ export default async function me(ctx, next) {
   try {
     const id = ctx.state.user.id;
     const me = await UserStore.find(id);
+    if (!me) ctx.throw(500, 'me not found');
     ctx.me = me;
     return next();
   } catch (err) {
