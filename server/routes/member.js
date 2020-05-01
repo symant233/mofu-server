@@ -22,12 +22,12 @@ router.get(
   MemberController.listGroupMembers
 );
 
-router.delete(
-  'destroy member by member',
-  '/group/:group/member/:member',
-  jwt, me, group, member,
-  MemberController.destroy
-);
+// router.delete(
+//   'destroy member by member',
+//   '/group/:group/member/:member',
+//   jwt, me, group, member,
+//   MemberController.destroy
+// );
 
 router.post(
   'request member',

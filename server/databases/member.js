@@ -96,7 +96,6 @@ class MemberStore {
     const members = [];
     while (await cursor.hasNext()) {
       const data = await cursor.next();
-      console.log(data);
       members.push(new MemberModel(data));
     }
     return members;

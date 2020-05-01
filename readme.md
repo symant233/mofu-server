@@ -1,5 +1,4 @@
 ## mofu-server
-***
 
 development:
 
@@ -15,10 +14,8 @@ npm run dev # start server (dev)
 
 Now server will start on localhost port `3000`.
 
-Router information turn to `./server/routes/*.js`, all routers will have a prefix `/api/v1` in default.
+Api information turn to `./apis`, use VSCode extension `REST Client` to use it.
 
 More documents are in folder `./docs`
 
-<div style="text-align: right">
-chat online with モフモフ 🦊
-</div>
+> chat online with モフモフ 🦊
