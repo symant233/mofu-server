@@ -6,7 +6,7 @@ id: Flake String id
 
 
 ```js
-Users {
+User {
   id: Flake,
   ^email: String,
   ^passwd: String,
@@ -17,14 +17,14 @@ Users {
   avatar: String,
 }
 
-Relations {
+Relation {
   id: Flake, // also DM channel id
   users: Array,
   type: Integer, // relation type
   since: Timestamp,
 }
 
-Groups {
+Group {
   id: Flake,
   name: String,
   notes: String,
@@ -35,7 +35,7 @@ Groups {
   avatar: String,
 }
 
-Members {
+Member {
   id: Flake,
   user: Flake,
   group: Flake,
@@ -44,7 +44,7 @@ Members {
   since: Timestamp,
 }
 
-Messages {
+Message {
   id: Flake,
   channel: Flake, // Group or DM id
   type: Integer, // Group or DM message
@@ -56,7 +56,7 @@ Messages {
 
 ## Response Objects
 ```js
-Users {
+User {
   id: Flake,
   nick: String,
   status: Integer,
@@ -65,38 +65,38 @@ Users {
   avatar: String,
 }
 
-Relations {
+Relation {
   id: Flake, // also DM channel id
   users: Array,
   type: Integer, // relation type
   since: Timestamp,
 }
 
-Groups {
+Group {
   id: Flake,
   name: String,
   notes: String,
-  owner: Flake,
+  owner: UserObject,
   popultaion: Integer,
   limit: Integer,
   since: Timestamp,
   avatar: String,
 }
 
-Members {
+Member {
   id: Flake,
-  user: Flake,
+  user: UserObject,
   group: Flake,
   type: MemberType, // constants/member.js
   stop: Timestamp, // 禁言, 默认 null
   since: Timestamp,
 }
 
-Messages {
+Message {
   id: Flake,
   channel: Flake, // Group or DM id
   type: Integer, // Group or DM message
-  author: Flake,
+  author: UserObject,
   content: String,
   timestamp: Timestamp,
 }

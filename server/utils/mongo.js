@@ -11,6 +11,11 @@ class Mongo {
         return;
       }
       this.mongo = this.client.db();
+      this.users = this.mongo.collection('users');
+      this.groups = this.mongo.collection('groups');
+      this.members = this.mongo.collection('members');
+      this.messages = this.mongo.collection('messages');
+      this.relations = this.mongo.collection('relations');
       await this.createIndexes();
     });
   }

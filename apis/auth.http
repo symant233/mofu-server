@@ -1,6 +1,4 @@
 # router auth
-# .rest .http github test
-
 @base = http://localhost:3000/api/v1
 # 使用注册或登入后会自动设置 cookie token
 

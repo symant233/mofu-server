@@ -1,4 +1,4 @@
-const MemberType = Object.freeze({
+export const MemberType = Object.freeze({
   REQUEST: 0, // 等待审核
   OWNER: 1, // 群主
   MANAGER: 2, // 管理员
@@ -7,4 +7,4 @@ const MemberType = Object.freeze({
   ROBOT: 5, // 机器人
 });
 
-export default MemberType;
+export const RelationType = Object.freeze({});

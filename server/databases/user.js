@@ -9,12 +9,10 @@ class UserStore {
    * @param {*} userId Flake
    */
   find = async (userId) => {
-    const cursor = db.mongo
-      .collection('users')
-      .aggregate([
-        { $match: { _id: userId } },
-        { $project: UserModel.projection },
-      ]);
+    const cursor = db.users.aggregate([
+      { $match: { _id: userId } },
+      { $project: UserModel.projection },
+    ]);
     let result;
     if (await cursor.hasNext()) {
       const user = await cursor.next();
@@ -27,9 +25,10 @@ class UserStore {
    * @param {*} email String
    */
   findEmail = async (email) => {
-    const cursor = db.mongo
-      .collection('users')
-      .aggregate([{ $match: { email } }, { $project: UserModel.projection }]);
+    const cursor = db.users.aggregate([
+      { $match: { email } },
+      { $project: UserModel.projection },
+    ]);
     let result;
     if (await cursor.hasNext()) {
       const user = await cursor.next();
@@ -43,7 +42,7 @@ class UserStore {
     const hash = crypto.createHash('sha256');
     hash.update(passwd);
     const now = new Date();
-    const rs = await db.mongo.collection('users').insertOne({
+    const rs = await db.users.insertOne({
       _id: id,
       email,
       passwd: hash.digest('hex'),
@@ -60,7 +59,7 @@ class UserStore {
   };
 
   verifyPasswd = async (email, passwd) => {
-    const user = await db.mongo.collection('users').findOne({ email });
+    const user = await db.users.findOne({ email });
     if (!user) return false;
     const hash = crypto.createHash('sha256');
     hash.update(passwd);
@@ -69,7 +68,7 @@ class UserStore {
 
   destroy = async (userId) => {
     let rs;
-    rs = await db.mongo.collection('users').deleteOne({ _id: userId });
+    rs = await db.users.deleteOne({ _id: userId });
     if (!rs.result.ok) return false;
     rs = await MemberStore.userDestroy(userId);
     return rs; // 经调用返回布尔值

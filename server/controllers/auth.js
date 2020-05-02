@@ -17,7 +17,7 @@ class AuthController {
     const { email, passwd, nick } = ctx.request.body;
     // TODO: validator
     const exist = await UserStore.findEmail(email);
-    if (exist) ctx.throw(400, 'user exists');
+    if (exist) ctx.throw(500, 'user exists');
 
     // 写入数据库
     const user = await UserStore.create(email, passwd, nick);

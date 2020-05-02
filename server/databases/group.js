@@ -1,5 +1,6 @@
 import db from '../utils/mongo';
 import GroupModel from '../models/group';
+import UserModel from '../models/user';
 import Flake from '../utils/flake';
 
 class GroupStore {
@@ -8,12 +9,26 @@ class GroupStore {
   }
 
   find = async (groupId) => {
-    const cursor = db.mongo
-      .collection('groups')
-      .aggregate([
-        { $match: { _id: groupId } },
-        { $project: GroupModel.projection },
-      ]);
+    const cursor = db.groups.aggregate([
+      { $match: { _id: groupId } },
+      {
+        $lookup: {
+          from: 'users',
+          let: { owner: '$owner' },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ['$_id', '$$owner'] },
+              },
+            },
+            { $project: UserModel.projection },
+          ],
+          as: 'owner',
+        },
+      },
+      { $unwind: { path: '$owner', preserveNullAndEmptyArrays: true } },
+      { $project: GroupModel.projection },
+    ]);
     let group;
     if (await cursor.hasNext()) {
       group = new GroupModel(await cursor.next());
@@ -29,7 +44,7 @@ class GroupStore {
     const id = Flake.generate();
     const now = new Date();
     const limit = this.LIMIT;
-    const rs = await db.mongo.collection('groups').insertOne({
+    const rs = await db.groups.insertOne({
       _id: id,
       name,
       owner,
@@ -54,7 +69,7 @@ class GroupStore {
    * 删除组内 member 需使用 MemberStore.groupDestroy
    */
   destroy = async (groupId) => {
-    const rs = await db.mongo.collection('groups').deleteOne({ _id: groupId });
+    const rs = await db.groups.deleteOne({ _id: groupId });
     return rs.result.ok;
   };
 

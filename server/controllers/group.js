@@ -1,6 +1,6 @@
 import GroupStore from '../databases/group';
 import MemberStore from '../databases/member';
-import MemberType from '../constants/member';
+import { MemberType } from '../constants';
 
 class GroupController {
   detail = async (ctx) => {
