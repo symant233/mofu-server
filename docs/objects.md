@@ -39,7 +39,7 @@ Member {
   id: Flake,
   user: Flake,
   group: Flake,
-  type: MemberType, // constants/member.js
+  type: MemberType,
   stop: Timestamp, // 禁言, 默认 null
   since: Timestamp,
 }
@@ -87,7 +87,7 @@ Member {
   id: Flake,
   user: UserObject,
   group: Flake,
-  type: MemberType, // constants/member.js
+  type: MemberType,
   stop: Timestamp, // 禁言, 默认 null
   since: Timestamp,
 }

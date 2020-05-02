@@ -8,7 +8,7 @@ POST {{base}}/group
 Content-Type: application/json
 
 {
-  "name": "My Group 1"
+  "name": "My Group 2"
 }
 
 ### 群组详情

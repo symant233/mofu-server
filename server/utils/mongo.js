@@ -11,6 +11,7 @@ class Mongo {
         return;
       }
       this.mongo = this.client.db();
+      // collection alias:
       this.users = this.mongo.collection('users');
       this.groups = this.mongo.collection('groups');
       this.members = this.mongo.collection('members');
@@ -22,7 +23,7 @@ class Mongo {
 
   async createIndexes() {
     let rs;
-    rs = await this.mongo.collection('users').createIndex({ email: 1 });
+    rs = await this.users.createIndex({ email: 1 });
   }
 
   close() {

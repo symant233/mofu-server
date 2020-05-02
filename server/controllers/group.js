@@ -31,8 +31,11 @@ class GroupController {
     ctx.status = 204;
   };
 
-  // TODO:
-  listMyGroups = async (ctx) => {};
+  listMyGroups = async (ctx) => {
+    const { me } = ctx;
+    const rs = await GroupStore.listMyGroups(me.id);
+    ctx.body = rs;
+  };
 }
 
 export default new GroupController();

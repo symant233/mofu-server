@@ -74,7 +74,54 @@ class GroupStore {
   };
 
   // TODO:
-  listMyGroups = async (userId) => {};
+  listMyGroups = async (userId) => {
+    const cursor = db.members.aggregate([
+      { $match: { user: userId } },
+      {
+        $lookup: {
+          from: 'groups',
+          let: { groupId: '$group' },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ['$_id', '$$groupId'] },
+              },
+            },
+            { $project: GroupModel.projection },
+          ],
+          as: 'group',
+        },
+      },
+      { $unwind: { path: '$group' } },
+      {
+        $replaceRoot: {
+          newRoot: '$group',
+        },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          let: { owner: '$owner' },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ['$_id', '$$owner'] },
+              },
+            },
+            { $project: UserModel.projection },
+          ],
+          as: 'owner',
+        },
+      },
+      { $unwind: { path: '$owner' } },
+    ]);
+    const groups = [];
+    while (await cursor.hasNext()) {
+      const group = await cursor.next();
+      groups.push(new GroupModel(group));
+    }
+    return groups;
+  };
 }
 
 export default new GroupStore();

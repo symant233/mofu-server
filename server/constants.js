@@ -7,4 +7,15 @@ export const MemberType = Object.freeze({
   ROBOT: 5, // 机器人
 });
 
-export const RelationType = Object.freeze({});
+export const MessageType = Object.freeze({
+  GROUP: 1,
+  DIRECT: 2,
+});
+
+export const RelationType = Object.freeze({
+  REFUSED: 0,
+  REQUEST: 1,
+  FRIEND: 2,
+  // TEMPORARY: 3,
+  BANNED: 4,
+});

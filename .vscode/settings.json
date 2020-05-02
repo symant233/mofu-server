@@ -2,5 +2,6 @@
     "editor.tabSize": 2,
     "[javascript]": {
         "editor.formatOnSave": true
-    }
+    },
+    "rest-client.enableCustomVariableReferencesCodeLens": false
 }
