@@ -63,38 +63,6 @@ class MemberStore {
 
   /**
    * @param groupId
-   * @returns boolean
-   * 仅用于群组销毁
-   */
-  groupDestroy = async (groupId) => {
-    const rs = await db.members.deleteMany({ group: groupId });
-    return rs.result.ok;
-  };
-
-  /**
-   * @param userId
-   * @returns boolean
-   * 仅用于用户销毁
-   */
-  userDestroy = async (userId) => {
-    const rs = await db.members.deleteMany({ user: userId });
-    return rs.result.ok;
-  };
-
-  /**
-   * @param memberId
-   * @returns boolean
-   * 销毁指定的 member
-   */
-  destroy = async (memberId) => {
-    const rs = await db.members.deleteOne({
-      _id: memberId,
-    });
-    return rs.result.ok;
-  };
-
-  /**
-   * @param groupId
    * @returns members Array
    */
   listInGroup = async (groupId) => {

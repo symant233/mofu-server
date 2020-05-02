@@ -13,13 +13,6 @@ router.get(
   UserController.detail
 );
 
-// router.delete(
-//   'destroy myself permanently',
-//   '/user/@me/destroy',
-//   jwt, me,
-//   UserController.destroy
-// );
-
 router.get(
   'get user detail',
   '/user/:user/detail',

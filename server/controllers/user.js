@@ -6,15 +6,6 @@ class UserController {
     ctx.body = ctx.me;
   };
 
-  // 销毁用户 (消息保留)
-  destroy = async (ctx) => {
-    const { me } = ctx;
-    const result = await UserStore.destroy(me.id);
-    // TODO: 清除 member, relation
-    if (!result) ctx.throw(500, 'destroy failed');
-    ctx.status = 204;
-  };
-
   userDetail = async (ctx) => {
     ctx.body = ctx.user;
   };

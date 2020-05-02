@@ -21,16 +21,6 @@ class GroupController {
     ctx.body = group;
   };
 
-  destroy = async (ctx) => {
-    const { me, group } = ctx;
-    if (me.id !== group.owner) ctx.throw(403, 'permission denied');
-    let rs = await GroupStore.destroy(group.id);
-    if (!rs) ctx.throw(500, 'destroy group failed');
-    rs = MemberStore.groupDestroy(group.id);
-    if (!rs) ctx.throw(500, 'destroy group member failed');
-    ctx.status = 204;
-  };
-
   listMyGroups = async (ctx) => {
     const { me } = ctx;
     const rs = await GroupStore.listMyGroups(me.id);

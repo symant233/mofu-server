@@ -5,17 +5,6 @@ class MemberController {
     ctx.body = ctx.member;
   };
 
-  destroy = async (ctx) => {
-    const { me, member, group } = ctx;
-    if (me.id !== member.user || me.id !== group.owner) {
-      // TODO: MANAGER permit
-      ctx.throw(403, 'permission denied');
-    }
-    const rs = await MemberStore.destroy(member.id);
-    if (!rs) ctx.throw(500, 'destroy member failed');
-    ctx.status = 204;
-  };
-
   listGroupMembers = async (ctx) => {
     const { group } = ctx;
     const rs = await MemberStore.listInGroup(group.id);

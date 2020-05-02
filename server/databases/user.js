@@ -65,14 +65,6 @@ class UserStore {
     hash.update(passwd);
     return user.passwd === hash.digest('hex');
   };
-
-  destroy = async (userId) => {
-    let rs;
-    rs = await db.users.deleteOne({ _id: userId });
-    if (!rs.result.ok) return false;
-    rs = await MemberStore.userDestroy(userId);
-    return rs; // 经调用返回布尔值
-  };
 }
 
 export default new UserStore();

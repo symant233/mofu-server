@@ -20,13 +20,6 @@ router.post(
   GroupController.create
 );
 
-// router.delete(
-//   'destroy group',
-//   '/group/:group/destroy',
-//   jwt, me, group,
-//   GroupController.destroy
-// );
-
 router.get(
   'list all my groups',
   '/group/@me',

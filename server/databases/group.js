@@ -62,18 +62,6 @@ class GroupStore {
     });
   };
 
-  /**
-   * @param groupId
-   * @returns boolean
-   * 销毁群组
-   * 删除组内 member 需使用 MemberStore.groupDestroy
-   */
-  destroy = async (groupId) => {
-    const rs = await db.groups.deleteOne({ _id: groupId });
-    return rs.result.ok;
-  };
-
-  // TODO:
   listMyGroups = async (userId) => {
     const cursor = db.members.aggregate([
       { $match: { user: userId } },
