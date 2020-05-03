@@ -24,16 +24,16 @@ router.get(
 
 router.post(
   'request member',
-  '/group/:group/',
+  '/group/:group/request',
   jwt, me, group,
   MemberController.request
 );
 
-router.patch(
-  'accept member',
+router.post(
+  'update member',
   '/group/:group/member/:member',
   jwt, me, group, member,
-  MemberController.accept
+  MemberController.update
 );
 
 export default router;

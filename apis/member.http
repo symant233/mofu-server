@@ -1,14 +1,28 @@
 # router member
 @base = http://localhost:3000/api/v1
 @member = 10474362079724
+@member2 = 
 @group = 10474362077060
 
-### 获取详情
-
+###
+@name = 获取详情
 GET {{base}}/member/{{member}}/detail
 
-### 列出群组所有成员
-
+###
+@name = 列出群组所有成员
 GET {{base}}/group/{{group}}/members
+
+###
+@name = 请求成员
+POST {{base}}/group/{{group}}/request
+
+###
+@name = 更新成员类型
+POST {{base}}/group/{{group}}/member/{{member}}
+Content-Type: application/json
+
+{
+  "type": 3
+}
 
 ###

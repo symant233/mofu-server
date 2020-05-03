@@ -38,6 +38,39 @@ class MemberStore {
 
   /**
    * @param userId
+   * @param groupid
+   * @returns member object
+   */
+  findByGroupUser = async (userId, groupId) => {
+    const cursor = db.members.aggregate([
+      { $match: { user: userId, group: groupId } },
+      {
+        $lookup: {
+          from: 'users',
+          let: { user: '$user' },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ['$_id', '$$user'] },
+              },
+            },
+            { $project: UserModel.projection },
+          ],
+          as: 'user',
+        },
+      },
+      { $unwind: { path: '$user' } },
+      { $project: MemberModel.projection },
+    ]);
+    let member;
+    if (await cursor.hasNext()) {
+      member = new MemberModel(await cursor.next());
+    }
+    return member;
+  };
+
+  /**
+   * @param userId
    * @param groupId
    * @param type MemberType
    */
@@ -92,6 +125,16 @@ class MemberStore {
       members.push(new MemberModel(data));
     }
     return members;
+  };
+
+  update = async (memberId, type) => {
+    const rs = await db.members.updateOne(
+      {
+        _id: memberId,
+      },
+      { $set: { type } }
+    );
+    return rs.result.ok;
   };
 }
 

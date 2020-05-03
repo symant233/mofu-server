@@ -2,8 +2,8 @@
 @base = http://localhost:3000/api/v1
 @group = 10474362077060
 
-### 创建群组
-
+###
+@name = 创建群组
 POST {{base}}/group
 Content-Type: application/json
 
@@ -11,12 +11,12 @@ Content-Type: application/json
   "name": "My Group 2"
 }
 
-### 群组详情
-
+###
+@name = 群组详情
 GET {{base}}/group/{{group}}/detail
 
-### 列出我的群组
-
+###
+@name = 列出我的群组
 GET {{base}}/group/@me
 
 ###

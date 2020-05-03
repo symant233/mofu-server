@@ -4,7 +4,7 @@ export const MemberType = Object.freeze({
   MANAGER: 2, // 管理员
   NORMAL: 3, // 普通
   BANNED: 4, // 屏蔽中
-  ROBOT: 5, // 机器人
+  // ROBOT: 5, // 机器人
 });
 
 export const MessageType = Object.freeze({
