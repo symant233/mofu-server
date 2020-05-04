@@ -20,3 +20,16 @@ GET {{base}}/group/{{group}}/detail
 GET {{base}}/group/@me
 
 ###
+@name = 发送消息
+POST {{base}}/group/{{group}}/message
+Content-Type: application/json
+
+{
+  "content": "aabbbb"
+}
+
+###
+@name = 列出群组消息
+GET {{base}}/group/{{group}}/messages
+
+###

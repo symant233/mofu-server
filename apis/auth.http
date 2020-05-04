@@ -3,12 +3,22 @@
 # 使用注册或登入后会自动设置 cookie token
 
 ###
-@name = 用户登录
+@name = 用户登录 mofu
 POST {{base}}/auth/login
 content-type: application/json
 
 {
 	"email": "mofu@gmail.com",
+	"passwd": "mofumofu"
+}
+
+###
+@name = 用户登录 test
+POST {{base}}/auth/login
+content-type: application/json
+
+{
+	"email": "test@gmail.com",
 	"passwd": "mofumofu"
 }
 

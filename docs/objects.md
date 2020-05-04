@@ -7,7 +7,7 @@ id: Flake String id
 
 ```js
 User {
-  id: Flake,
+  _id: Flake,
   ^email: String,
   ^passwd: String,
   nick: String,
@@ -18,14 +18,14 @@ User {
 }
 
 Relation {
-  id: Flake, // also DM channel id
+  _id: Flake, // also DM channel id
   users: Array,
   type: Integer, // relation type
   since: Timestamp,
 }
 
 Group {
-  id: Flake,
+  _id: Flake,
   name: String,
   notes: String,
   owner: Flake,
@@ -36,19 +36,19 @@ Group {
 }
 
 Member {
-  id: Flake,
+  _id: Flake,
   user: Flake,
   group: Flake,
-  type: MemberType,
+  type: Integer, // MemberType
   stop: Timestamp, // 禁言, 默认 null
   since: Timestamp,
 }
 
 Message {
-  id: Flake,
+  _id: Flake,
   channel: Flake, // Group or DM id
   type: Integer, // Group or DM message
-  author: Flake,
+  author: Flake, // Member or User flake
   content: String,
   timestamp: Timestamp,
 }
@@ -87,7 +87,7 @@ Member {
   id: Flake,
   user: UserObject,
   group: Flake,
-  type: MemberType,
+  type: Integer, // MemberType
   stop: Timestamp, // 禁言, 默认 null
   since: Timestamp,
 }
@@ -96,7 +96,7 @@ Message {
   id: Flake,
   channel: Flake, // Group or DM id
   type: Integer, // Group or DM message
-  author: UserObject,
+  author: Object, // Member or User object
   content: String,
   timestamp: Timestamp,
 }

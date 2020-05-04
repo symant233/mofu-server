@@ -1,5 +1,6 @@
 import db from '../utils/mongo';
 import MemberModel from '../models/member';
+import { MemberType } from '../constants';
 import UserModel from '../models/user';
 import Flake from '../utils/flake';
 
@@ -26,7 +27,7 @@ class MemberStore {
           as: 'user',
         },
       },
-      { $unwind: { path: '$user', preserveNullAndEmptyArrays: true } },
+      { $unwind: { path: '$user' } },
       { $project: MemberModel.projection },
     ]);
     let member;
@@ -116,7 +117,7 @@ class MemberStore {
           as: 'user',
         },
       },
-      { $unwind: { path: '$user', preserveNullAndEmptyArrays: true } },
+      { $unwind: { path: '$user' } },
       { $project: MemberModel.projection },
     ]);
     const members = [];
@@ -128,11 +129,15 @@ class MemberStore {
   };
 
   update = async (memberId, type) => {
+    let updates = { type };
+    if (type === MemberType.NORMAL || type === MemberType.BANNED) {
+      updates.since = new Date();
+    }
     const rs = await db.members.updateOne(
       {
         _id: memberId,
       },
-      { $set: { type } }
+      { $set: updates }
     );
     return rs.result.ok;
   };

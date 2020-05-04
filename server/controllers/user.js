@@ -9,6 +9,8 @@ class UserController {
   userDetail = async (ctx) => {
     ctx.body = ctx.user;
   };
+
+  // TODO: update nickname
 }
 
 export default new UserController();
