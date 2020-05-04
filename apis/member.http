@@ -1,7 +1,7 @@
 # router member
 @base = http://localhost:3000/api/v1
 @member = 10474362079724
-@member2 = 
+@member2 = 10830516388501
 @group = 10474362077060
 
 ###
@@ -17,12 +17,7 @@ GET {{base}}/group/{{group}}/members
 POST {{base}}/group/{{group}}/request
 
 ###
-@name = 更新成员类型
-POST {{base}}/group/{{group}}/member/{{member}}
-Content-Type: application/json
-
-{
-  "type": 3
-}
+@name = 接受成员
+POST {{base}}/group/{{group}}/member/{{member2}}
 
 ###

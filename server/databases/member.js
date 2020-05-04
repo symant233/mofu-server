@@ -38,7 +38,7 @@ class MemberStore {
 
   /**
    * @param userId
-   * @param groupid
+   * @param groupId
    * @returns member object
    */
   findByGroupUser = async (userId, groupId) => {

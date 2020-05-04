@@ -30,10 +30,10 @@ router.post(
 );
 
 router.post(
-  'update member',
+  'accept member',
   '/group/:group/member/:member',
   jwt, me, group, member,
-  MemberController.update
+  MemberController.accept
 );
 
 export default router;
