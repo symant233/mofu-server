@@ -1,6 +1,6 @@
 ## mofu-server
 
-development:
+development: (Node >= v12)
 
 ```bash
 npm install # download all dependencies
