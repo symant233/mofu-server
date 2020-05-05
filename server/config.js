@@ -8,7 +8,7 @@ const config = Object.freeze({
   apiPrefix: file.api_prefix,
   apiVersion: file.api_version,
   jwtSecret: file.jwt_secret,
-  mongoURL: `mongodb://${file.mongo_url}`,
+  mongoURL: file.mongo_url,
   redisURL: {
     host: file.redis.host,
     port: file.redis.port,

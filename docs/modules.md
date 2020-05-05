@@ -37,3 +37,18 @@ try {
   console.log(err.message);
 }
 ```
+
+### mongodb
+mongodb atlas cluster:
+```js
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://xxxx-admin:<password>@xxxx-cluster0-?????.azure.mongodb.net/<DATABASE>?retryWrites=true&w=majority";
+// 本地使用 mongodb://127.0.0.1:27017/mofu 即可
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+```
+其中隐去xxxx的是注册时填写的簇名, <DATABASE> 要填写需要连接到的库名, password填密码.

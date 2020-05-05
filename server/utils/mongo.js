@@ -2,7 +2,10 @@ import { MongoClient } from 'mongodb';
 
 class Mongo {
   connect(url) {
-    this.client = new MongoClient(url, { useNewUrlParser: true });
+    this.client = new MongoClient(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     this.client.connect(async (err, result) => {
       if (!err) {
         console.log(`✅ MongoDB connected.`);
