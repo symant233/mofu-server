@@ -18,8 +18,29 @@ class MessageController {
     ctx.body = rs;
   };
 
-  // TODO:
-  listGroupMessages = async (ctx) => {};
+  listGroupMessages = async (ctx) => {
+    const { me, group } = ctx;
+    let { before, after, limit = 50 } = ctx.query;
+    let messageId = null;
+    let method = 'before';
+    if (typeof before !== 'undefined' && before.length > 0) {
+      messageId = before;
+      method = 'before';
+    } else if (typeof after !== 'undefined' && after.length > 0) {
+      messageId = after;
+      method = 'after';
+    }
+    limit = Math.max(Math.min(100, limit), 1); // 1~100
+    const messages = await MessageStore.listGroupMessages(
+      group.id,
+      messageId,
+      limit,
+      method
+    );
+    if (typeof messages === 'undefined' || messages.length <= 0)
+      ctx.throw(400, 'empty');
+    ctx.body = messages;
+  };
 }
 
 export default new MessageController();

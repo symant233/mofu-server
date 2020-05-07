@@ -25,11 +25,11 @@ POST {{base}}/group/{{group}}/message
 Content-Type: application/json
 
 {
-  "content": "aabbbb"
+  "content": "ccccccc"
 }
 
 ###
 @name = 列出群组消息
-GET {{base}}/group/{{group}}/messages
+GET {{base}}/group/{{group}}/messages?limit=50
 
 ###

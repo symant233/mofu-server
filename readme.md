@@ -14,7 +14,7 @@ npm run dev # start server (dev)
 
 Now server will start on localhost port `3000`.
 
-Api information turn to `./apis`, use VSCode extension `REST Client` to use it.
+Api information turn to folder `./apis`, use VSCode extension `REST Client` to use it.
 
 More documents are in folder `./docs`
 
