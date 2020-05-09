@@ -5,6 +5,7 @@ import routing from './routes';
 import koaBody from 'koa-body';
 import { port, mongoURL } from './config';
 import db from './utils/mongo';
+import msg from './utils/socket';
 
 db.connect(mongoURL);
 const app = new Koa();

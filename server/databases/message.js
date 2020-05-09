@@ -1,7 +1,6 @@
 import db from '../utils/mongo';
 import MessageModel from '../models/message';
 import UserModel from '../models/user';
-import MemberModel from '../models/member';
 import { MessageType } from '../constants';
 import Flake from '../utils/flake';
 
