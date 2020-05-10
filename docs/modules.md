@@ -52,3 +52,23 @@ client.connect(err => {
 });
 ```
 其中隐去xxxx的是注册时填写的簇名, <DATABASE> 要填写需要连接到的库名, password填密码.
+
+### socket.io
+```js
+import Socket from 'socket.io';
+import { socketPort } from './config';
+
+const io = Socket();
+
+const msg = io.of('/messages');
+msg.on('connection', (socket) => {
+  let user = 1; // 每一个新连接都会重置
+  socket.on('new', (data) => {
+    socket.broadcast.emit('cast:' + data); // 所有人除了我收到
+    socket.emit('socket:' + data); // 只有我收到
+    msg.emit('msg:' + data); // 包括我所有人收到
+  });
+});
+
+io.listen(socketPort);
+```
