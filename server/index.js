@@ -5,14 +5,14 @@ import routing from './routes';
 import koaBody from 'koa-body';
 import { port, mongoURL } from './config';
 import db from './utils/mongo';
+import cors from '@koa/cors';
 import msg from './utils/socket';
 
 db.connect(mongoURL);
 const app = new Koa();
 
+app.use(cors({ credentials: true }));
 app.use((ctx, next) => {
-  // enable CORS http://stackoverflow.com/questions/49633157/ddg#49633526
-  ctx.set('Access-Control-Allow-Origin', '*');
   if (ctx.request.path === '/') {
     ctx.throw(403);
   }

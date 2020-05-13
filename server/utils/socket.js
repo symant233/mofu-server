@@ -26,11 +26,13 @@ msg.on('connection', (socket) => {
     if (!socket.userId) socket.disconnect(true);
   }, 5000);
 
-  socket.on('dev', (userId) => {
-    // 把 userId 存在 socket session 中
-    socket.userId = userId.toString();
-    _join(socket);
-  });
+  if (process.env.NODE_ENV === 'development') {
+    socket.on('dev', (userId) => {
+      // 把 userId 存在 socket session 中
+      socket.userId = userId.toString();
+      _join(socket);
+    });
+  }
 
   socket.on('auth', (token) => {
     try {
