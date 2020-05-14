@@ -7,6 +7,7 @@ import { port, mongoURL } from './config';
 import db from './utils/mongo';
 import cors from '@koa/cors';
 import msg from './utils/socket';
+import { mongoSanitize } from './utils/sanitizer';
 
 db.connect(mongoURL);
 const app = new Koa();
@@ -22,6 +23,10 @@ app.use(logger());
 app.use(helmet()); // 安全机制
 app.use(helmet.hidePoweredBy({ setTo: 'mofu-sever' }));
 app.use(koaBody()); // 支持json请求数据
+app.use((ctx, next) => {
+  ctx.request.body = mongoSanitize(ctx.request.body);
+  return next();
+});
 
 routing(app);
 

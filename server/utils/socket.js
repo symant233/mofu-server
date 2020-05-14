@@ -35,8 +35,10 @@ msg.on('connection', (socket) => {
   }
 
   socket.on('auth', (token) => {
+    if (!token) return;
     try {
       const info = jwt.verify(token, jwtSecret);
+      socket.emit('auth', 'succeed!');
       socket.userId = info.id;
     } catch (error) {
       socket.disconnect(true);

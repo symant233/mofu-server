@@ -5,6 +5,37 @@ import { MessageType } from '../constants';
 import Flake from '../utils/flake';
 
 class MessageStore {
+  find = async (messageId) => {
+    const cursor = db.messages.aggregate([
+      {
+        $match: { _id: messageId },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          let: { author: '$author' },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ['$_id', '$$author'] },
+              },
+            },
+            { $project: UserModel.projection },
+          ],
+          as: 'author',
+        },
+      },
+      { $unwind: { path: '$author' } },
+      { $project: MessageModel.projection },
+    ]);
+    let message;
+    if (await cursor.hasNext()) {
+      const data = await cursor.next();
+      message = new MessageModel(data);
+    }
+    return message;
+  };
+
   /**
    * @param groupId
    * @param meId

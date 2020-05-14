@@ -16,8 +16,9 @@ class MessageController {
     }
     const rs = await MessageStore.createGroupMessage(group.id, me.id, content);
     if (!rs) ctx.throw(500, 'create message failed');
-    msg.to(group.id).emit('new msg', rs);
-    ctx.body = rs;
+    const message = await MessageStore.find(rs.id);
+    msg.to(group.id).emit('new msg', message);
+    ctx.body = message;
   };
 
   listGroupMessages = async (ctx) => {
