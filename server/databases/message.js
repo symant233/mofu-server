@@ -3,6 +3,7 @@ import MessageModel from '../models/message';
 import UserModel from '../models/user';
 import { MessageType } from '../constants';
 import Flake from '../utils/flake';
+import UserStore from './user';
 
 class MessageStore {
   find = async (messageId) => {
@@ -53,13 +54,14 @@ class MessageStore {
     };
     const rs = await db.messages.insertOne({ _id: id, ...info });
     if (!rs.result.ok) return undefined;
-    return { id, ...info };
+    const user = await UserStore.find(meId);
+    return { id, ...info, author: user };
   };
 
   listGroupMessages = async (groupId, messageId, limit, method) => {
     let targetId = messageId;
     if (!targetId) {
-      if (method === 'before') targetId = '99999999999999';
+      if (method === 'before') targetId = '999999999999999';
       if (method === 'after') targetId = '0';
     }
     let op = '$lt';

@@ -6,6 +6,7 @@ class MessageController {
   createGroupMessage = async (ctx) => {
     const { content } = ctx.request.body;
     // TODO: content validator
+    if (!content) ctx.throw(400, 'empty message content');
     const { me, group, member } = ctx;
     const t = member.type;
     if (t === MemberType.REQUEST || t === MemberType.BANNED) {
@@ -16,9 +17,8 @@ class MessageController {
     }
     const rs = await MessageStore.createGroupMessage(group.id, me.id, content);
     if (!rs) ctx.throw(500, 'create message failed');
-    const message = await MessageStore.find(rs.id);
-    msg.to(group.id).emit('new msg', message);
-    ctx.body = message;
+    msg.to(group.id).emit('new msg', rs);
+    ctx.body = rs;
   };
 
   listGroupMessages = async (ctx) => {

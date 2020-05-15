@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import db from './mongo';
 
 const io = Server();
-const msg = io.of('/messages');
+const msg = io.of('/msg');
 
 async function _join(socket) {
   console.log(`Login: ${socket.userId}`);
