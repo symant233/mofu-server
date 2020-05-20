@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from '../config';
 import UserStore from '../databases/user';
-import camelcase from 'camelcase-keys';
 
 class AuthController {
   _sign = (id) => {
@@ -16,6 +15,7 @@ class AuthController {
     // 处理传入数据
     const { email, passwd, nick } = ctx.request.body;
     // TODO: validator
+    if (!nick) ctx.throw(400, 'empty nick not allowed');
     const exist = await UserStore.findEmail(email);
     if (exist) ctx.throw(500, 'user exists');
 

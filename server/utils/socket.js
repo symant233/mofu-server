@@ -1,6 +1,7 @@
 import Server from 'socket.io';
 import { socketPort, jwtSecret } from '../config';
 import MemberModel from '../models/member';
+import UserModel from '../models/user';
 import jwt from 'jsonwebtoken';
 import db from './mongo';
 
@@ -18,6 +19,13 @@ async function _join(socket) {
     socket.join(data.group);
     console.log(`Join: ${socket.userId}->${data.group}`);
   }
+}
+
+async function _me(socket) {
+  let user = await db.users.findOne({ _id: socket.userId });
+  user = new UserModel(user).parse();
+  socket.me = { id: socket.userId, ...user };
+  // socket.emit('me', socket.me);
 }
 
 msg.on('connection', (socket) => {
@@ -43,18 +51,21 @@ msg.on('connection', (socket) => {
     } catch (error) {
       socket.disconnect(true);
     }
+    _me(socket);
     _join(socket);
   });
 
   socket.on('typing', (channel) => {
     socket.broadcast.to(channel).emit('typing', {
-      id: socket.userId,
+      nick: socket.me.nick,
+      channel,
     });
   });
 
   socket.on('stop typing', (channel) => {
     socket.broadcast.to(channel).emit('stop typing', {
-      id: socket.userId,
+      nick: socket.me.nick,
+      channel,
     });
   });
 

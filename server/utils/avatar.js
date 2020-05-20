@@ -41,6 +41,6 @@ export default function gen() {
 
 /**
  * 使用方法
- * import avatar from '../utils/avatar';
- * const url = avatar();
+ * import avatarGen from '../utils/avatar';
+ * const url = avatarGen();
  */
