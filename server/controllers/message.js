@@ -1,10 +1,12 @@
 import MessageStore from '../databases/message';
 import { MemberType, MessageType } from '../constants';
 import msg from '../utils/socket';
+import filter from '../utils/filter';
 
 class MessageController {
   createGroupMessage = async (ctx) => {
-    const { content } = ctx.request.body;
+    let { content } = ctx.request.body;
+    content = filter.parse(content);
     // TODO: content validator
     if (!content) ctx.throw(400, 'empty message content');
     const { me, group, member } = ctx;
