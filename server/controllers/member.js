@@ -1,6 +1,5 @@
 import MemberStore from '../databases/member';
 import { MemberType } from '../constants';
-import msg from '../utils/socket';
 
 class MemberController {
   detail = async (ctx) => {
@@ -23,7 +22,6 @@ class MemberController {
     const rs = await MemberStore.create(me.id, group.id, MemberType.NORMAL);
     if (!rs) ctx.throw(500, 'request member failed');
     ctx.body = rs;
-    msg.emit('group join', group);
   };
 
   accept = async (ctx) => {

@@ -6,7 +6,7 @@ import koaBody from 'koa-body';
 import { port, mongoURL } from './config';
 import db from './utils/mongo';
 import cors from '@koa/cors';
-import msg from './utils/socket';
+// import msg from './utils/socket';
 import { mongoSanitize } from './utils/sanitizer';
 
 db.connect(mongoURL);

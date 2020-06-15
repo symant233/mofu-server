@@ -20,9 +20,12 @@
   "scripts": {
     "prod": "cross-env NODE_ENV=production nodemon -r esm server/",
     "dev": "cross-env NODE_ENV=development nodemon -r esm server/",
-    "test": "cross-env NODE_ENV=development node -r esm tests/"
+    "test": "cross-env NODE_ENV=development node -r esm tests/",
+    "bundle": "node -r esm dist/app.bundle.js",
+    "build": "rm dist/* ; npx webpack"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.10.1",
     "@koa/cors": "^3.0.0",
     "camelcase-keys": "^6.2.2",
     "cross-env": "^7.0.2",
@@ -38,16 +41,20 @@
     "koa-router": "^8.0.8",
     "mongodb": "^3.5.5",
     "nodemon": "^2.0.3",
-    "snakecase-keys": "^3.2.0",
-    "socket.io": "^2.3.0"
+    "regenerator-runtime": "^0.13.5",
+    "snakecase-keys": "^3.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
     "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "prettier": "^2.0.4",
-    "socket.io-client": "^2.3.0"
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "nodemonConfig": {
     "ignore": [
