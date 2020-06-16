@@ -3,6 +3,7 @@ import UserModel from '../models/user';
 import MemberStore from './member';
 import Flake from '../utils/flake';
 import crypto from 'crypto';
+import avatarGen from '../utils/avatar';
 
 class UserStore {
   /**
@@ -42,11 +43,13 @@ class UserStore {
     const hash = crypto.createHash('sha256');
     hash.update(passwd);
     const now = new Date();
+    const avatar = avatarGen();
     const rs = await db.users.insertOne({
       _id: id,
       email,
       passwd: hash.digest('hex'),
       nick,
+      avatar,
       since: now,
     });
     if (!rs.result.ok) return undefined;
@@ -54,6 +57,7 @@ class UserStore {
       id,
       email,
       nick,
+      avatar,
       since: now,
     });
   };

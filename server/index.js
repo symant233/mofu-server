@@ -5,14 +5,15 @@ import routing from './routes';
 import koaBody from 'koa-body';
 import { port, mongoURL } from './config';
 import db from './utils/mongo';
+import cors from '@koa/cors';
 import msg from './utils/socket';
+import { mongoSanitize } from './utils/sanitizer';
 
 db.connect(mongoURL);
 const app = new Koa();
 
+app.use(cors({ credentials: true }));
 app.use((ctx, next) => {
-  // enable CORS http://stackoverflow.com/questions/49633157/ddg#49633526
-  ctx.set('Access-Control-Allow-Origin', '*');
   if (ctx.request.path === '/') {
     ctx.throw(403);
   }
@@ -22,6 +23,10 @@ app.use(logger());
 app.use(helmet()); // 安全机制
 app.use(helmet.hidePoweredBy({ setTo: 'mofu-sever' }));
 app.use(koaBody()); // 支持json请求数据
+app.use((ctx, next) => {
+  ctx.request.body = mongoSanitize(ctx.request.body);
+  return next();
+});
 
 routing(app);
 

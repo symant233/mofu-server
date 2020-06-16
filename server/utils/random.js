@@ -27,4 +27,8 @@ export default class Random {
     }
     return result;
   }
+
+  static getArrayItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
 }

@@ -2,6 +2,7 @@ import db from '../utils/mongo';
 import GroupModel from '../models/group';
 import UserModel from '../models/user';
 import Flake from '../utils/flake';
+import avatarGen from '../utils/avatar';
 
 class GroupStore {
   constructor() {
@@ -44,6 +45,7 @@ class GroupStore {
     const id = Flake.generate();
     const now = new Date();
     const limit = this.LIMIT;
+    const avatar = avatarGen();
     const rs = await db.groups.insertOne({
       _id: id,
       name,
@@ -51,6 +53,7 @@ class GroupStore {
       population: 1,
       limit,
       since: now,
+      avatar,
     });
     if (!rs.result.ok) return undefined;
     return new GroupModel({
@@ -59,6 +62,7 @@ class GroupStore {
       owner,
       limit,
       since: now,
+      avatar,
     });
   };
 

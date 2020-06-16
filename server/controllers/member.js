@@ -17,7 +17,9 @@ class MemberController {
     const { me, group } = ctx;
     const myMember = await MemberStore.findByGroupUser(me.id, group.id);
     if (myMember) ctx.throw(500, 'member already exists');
-    const rs = await MemberStore.create(me.id, group.id, MemberType.REQUEST);
+    // ! 注意这里把 type 从 REQUEST 改成了 NORMAL 直接成为成员不用批准,
+    // ! 前端还未找到好的地方放接受请求的窗口 先将就一下
+    const rs = await MemberStore.create(me.id, group.id, MemberType.NORMAL);
     if (!rs) ctx.throw(500, 'request member failed');
     ctx.body = rs;
   };

@@ -6,6 +6,7 @@ class MessageController {
   createGroupMessage = async (ctx) => {
     const { content } = ctx.request.body;
     // TODO: content validator
+    if (!content) ctx.throw(400, 'empty message content');
     const { me, group, member } = ctx;
     const t = member.type;
     if (t === MemberType.REQUEST || t === MemberType.BANNED) {

@@ -3,8 +3,40 @@ import MessageModel from '../models/message';
 import UserModel from '../models/user';
 import { MessageType } from '../constants';
 import Flake from '../utils/flake';
+import UserStore from './user';
 
 class MessageStore {
+  find = async (messageId) => {
+    const cursor = db.messages.aggregate([
+      {
+        $match: { _id: messageId },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          let: { author: '$author' },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ['$_id', '$$author'] },
+              },
+            },
+            { $project: UserModel.projection },
+          ],
+          as: 'author',
+        },
+      },
+      { $unwind: { path: '$author' } },
+      { $project: MessageModel.projection },
+    ]);
+    let message;
+    if (await cursor.hasNext()) {
+      const data = await cursor.next();
+      message = new MessageModel(data);
+    }
+    return message;
+  };
+
   /**
    * @param groupId
    * @param meId
@@ -22,13 +54,14 @@ class MessageStore {
     };
     const rs = await db.messages.insertOne({ _id: id, ...info });
     if (!rs.result.ok) return undefined;
-    return { id, ...info };
+    const user = await UserStore.find(meId);
+    return { id, ...info, author: user };
   };
 
   listGroupMessages = async (groupId, messageId, limit, method) => {
     let targetId = messageId;
     if (!targetId) {
-      if (method === 'before') targetId = '99999999999999';
+      if (method === 'before') targetId = '999999999999999';
       if (method === 'after') targetId = '0';
     }
     let op = '$lt';
