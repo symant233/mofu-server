@@ -1,12 +1,10 @@
 import MessageStore from '../databases/message';
 import { MemberType, MessageType } from '../constants';
-import msg from '../utils/socket';
-import filter from '../utils/filter';
+// import msg from '../utils/socket';
 
 class MessageController {
   createGroupMessage = async (ctx) => {
     let { content } = ctx.request.body;
-    content = filter.parse(content);
     // TODO: content validator
     if (!content) ctx.throw(400, 'empty message content');
     const { me, group, member } = ctx;
@@ -19,7 +17,7 @@ class MessageController {
     }
     const rs = await MessageStore.createGroupMessage(group.id, me.id, content);
     if (!rs) ctx.throw(500, 'create message failed');
-    msg.to(group.id).emit('new msg', rs);
+    // msg.to(group.id).emit('new msg', rs);
     ctx.body = rs;
   };
 
