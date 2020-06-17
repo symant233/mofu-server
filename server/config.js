@@ -9,7 +9,7 @@ const config = Object.freeze({
   apiPrefix: file.api_prefix,
   apiVersion: file.api_version,
   jwtSecret: file.jwt_secret,
-  mongoURL: file.mongo_url,
+  mongoURL: file.mongo_url || process.env.MONGOURL,
   redisURL: {
     host: file.redis.host,
     port: file.redis.port,
