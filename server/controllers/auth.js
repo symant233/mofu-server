@@ -40,6 +40,7 @@ class AuthController {
       user = await UserStore.findEmail(email);
       token = this._sign(user.id);
       ctx.cookies.set('token', token);
+      ctx.cookies.set('SameSite', 'Lax');
     }
     if (!user) ctx.throw(500, 'login failed');
     ctx.body = { ...user, token };
