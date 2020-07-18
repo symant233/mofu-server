@@ -26,6 +26,7 @@ class AuthController {
     // 返回 token 设置 cookies
     const token = this._sign(user.id);
     ctx.cookies.set('token', token);
+    ctx.cookies.set('SameSite', 'Lax');
     ctx.body = { ...user, token };
   };
 

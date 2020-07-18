@@ -25,6 +25,7 @@ async function _me(socket) {
   let user = await db.users.findOne({ _id: socket.userId });
   user = new UserModel(user).parse();
   socket.me = { id: socket.userId, ...user };
+  socket.join(socket.userId);
   // socket.emit('me', socket.me);
 }
 
@@ -32,7 +33,7 @@ msg.on('connection', (socket) => {
   // 防止空连接
   setTimeout(() => {
     if (!socket.userId) socket.disconnect(true);
-  }, 5000);
+  }, 95000);
 
   if (process.env.NODE_ENV === 'development') {
     socket.on('dev', (userId) => {
@@ -73,6 +74,11 @@ msg.on('connection', (socket) => {
     socket.broadcast.to(channel).emit('user left', {
       id: socket.userId,
     });
+  });
+
+  socket.on('join a group', (groupId) => {
+    // ! 需要验证是否为群组成员
+    socket.join(groupId);
   });
 });
 
