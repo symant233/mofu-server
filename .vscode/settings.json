@@ -3,5 +3,6 @@
     "[javascript]": {
         "editor.formatOnSave": true
     },
-    "rest-client.enableCustomVariableReferencesCodeLens": false
+    "rest-client.enableCustomVariableReferencesCodeLens": false,
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
 }

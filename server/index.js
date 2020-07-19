@@ -6,11 +6,26 @@ import koaBody from 'koa-body';
 import { port, mongoURL } from './config';
 import db from './utils/mongo';
 import cors from '@koa/cors';
-// import msg from './utils/socket';
+import './utils/socket';
 import { mongoSanitize } from './utils/sanitizer';
 
 db.connect(mongoURL);
 const app = new Koa();
+
+const handler = async (ctx, next) => {
+  try {
+    await next();
+  } catch (err) {
+    let result = {
+      status: err.__proto__.status,
+      name: err.name,
+      message: err.message,
+    };
+    ctx.status = result.status;
+    ctx.body = result;
+    console.log(result);
+  }
+};
 
 app.use(cors({ credentials: true }));
 app.use((ctx, next) => {
@@ -27,6 +42,7 @@ app.use((ctx, next) => {
   ctx.request.body = mongoSanitize(ctx.request.body);
   return next();
 });
+app.use(handler);
 
 routing(app);
 
