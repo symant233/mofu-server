@@ -1,6 +1,6 @@
 import MessageStore from '../databases/message';
 import { MemberType, MessageType } from '../constants';
-// import msg from '../utils/socket';
+import msg from '../utils/socket';
 
 class MessageController {
   createGroupMessage = async (ctx) => {
@@ -17,7 +17,7 @@ class MessageController {
     }
     const rs = await MessageStore.createGroupMessage(group.id, me.id, content);
     if (!rs) ctx.throw(500, 'create message failed');
-    // msg.to(group.id).emit('new msg', rs);
+    msg.to(group.id).emit('new msg', rs);
     ctx.body = rs;
   };
 

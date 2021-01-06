@@ -8,8 +8,12 @@ import db from './mongo';
 const io = Server();
 const msg = io.of('/msg');
 
+function logger(message) {
+  console.log('  --- SOCKET', message);
+}
+
 async function _join(socket) {
-  console.log(`Login: ${socket.userId}`);
+  logger(`Login: ${socket.userId}`);
   const cursor = db.members.aggregate([
     { $match: { user: socket.userId } },
     { $project: MemberModel.projection },
@@ -17,7 +21,7 @@ async function _join(socket) {
   while (await cursor.hasNext()) {
     const data = await cursor.next();
     socket.join(data.group);
-    console.log(`Join: ${socket.userId}->${data.group}`);
+    logger(`Join: ${socket.userId} -> ${data.group}`);
   }
 }
 
@@ -79,6 +83,7 @@ msg.on('connection', (socket) => {
   socket.on('join a group', (groupId) => {
     // ! 需要验证是否为群组成员
     socket.join(groupId);
+    logger(`Join: ${socket.userId} -> ${groupId}`);
   });
 });
 

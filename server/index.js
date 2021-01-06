@@ -18,7 +18,7 @@ const handler = async (ctx, next) => {
   } catch (err) {
     let result = {
       status: err.__proto__.status,
-      name: err.name,
+      // name: err.name,
       message: err.message,
     };
     ctx.status = result.status;

@@ -25,8 +25,7 @@ class AuthController {
 
     // 返回 token 设置 cookies
     const token = this._sign(user.id);
-    ctx.cookies.set('token', token);
-    ctx.cookies.set('SameSite', 'Lax');
+    ctx.cookies.set('token', token, { sameSite: 'lax' });
     ctx.body = { ...user, token };
   };
 
@@ -39,8 +38,7 @@ class AuthController {
       if (!result) ctx.throw(400, 'email not registered or wrong password');
       user = await UserStore.findEmail(email);
       token = this._sign(user.id);
-      ctx.cookies.set('token', token);
-      ctx.cookies.set('SameSite', 'Lax');
+      ctx.cookies.set('token', token, { sameSite: 'lax' });
     }
     if (!user) ctx.throw(500, 'login failed');
     ctx.body = { ...user, token };
