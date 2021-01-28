@@ -13,9 +13,9 @@ export const MessageType = Object.freeze({
 });
 
 export const RelationType = Object.freeze({
-  REFUSED: 0,
-  REQUEST: 1,
-  FRIEND: 2,
-  // TEMPORARY: 3,
-  BANNED: 4,
+  REFUSED: 0, // 请求
+  REQUEST: 1, // 拒绝
+  FRIEND: 2, // 好友
+  TEMPORARY: 3, // 临时
+  BANNED: 4, // 屏蔽
 });

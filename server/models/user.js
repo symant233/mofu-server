@@ -3,7 +3,6 @@ import BaseModel from './base';
 export default class UserModel extends BaseModel {
   constructor(data = {}) {
     super(data);
-    this.id = data.id;
     this.email = data.email;
     this.passwd = data.passwd;
     this.nick = data.nick;

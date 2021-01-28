@@ -1,0 +1,13 @@
+# router relation
+@base = http://localhost:3000/api/v1
+@user = 10290909060497
+@relation = 34056730500279
+
+###
+@name = 创建关系
+POST {{base}}/relation/create/{{user}}
+###
+
+###
+@name = 详情
+GET {{base}}/relation/{{relation}}/detail

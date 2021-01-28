@@ -17,11 +17,11 @@ const handler = async (ctx, next) => {
     await next();
   } catch (err) {
     let result = {
-      status: err.__proto__.status,
+      status: err.__proto__.status || err.status,
       // name: err.name,
       message: err.message,
     };
-    ctx.status = result.status;
+    ctx.status = result.status || 502;
     ctx.body = result;
     console.log(result);
   }

@@ -3,7 +3,6 @@ import BaseModel from './base';
 export default class GroupModel extends BaseModel {
   constructor(data = {}) {
     super(data);
-    this.id = data.id;
     this.name = data.name;
     this.notes = data.notes;
     this.owner = data.owner;

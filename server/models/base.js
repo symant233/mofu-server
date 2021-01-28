@@ -1,6 +1,10 @@
 import snakecase from 'snakecase-keys';
 
 export default class BaseModel {
+  constructor(data = {}) {
+    this.id = data.id || data._id;
+  }
+
   // mongodb base projection
   static projection = {
     _id: 0,
@@ -14,7 +18,7 @@ export default class BaseModel {
   static parse(data) {
     if (data._id) data.id = data._id;
     Object.keys(data).forEach((key) => {
-      if (this.projection[key] !== 1) delete data[key];
+      if (this.projection[key] === 0) delete data[key];
     });
     return snakecase(data);
   }

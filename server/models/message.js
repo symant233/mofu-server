@@ -3,7 +3,6 @@ import BaseModel from './base';
 export default class MessageModel extends BaseModel {
   constructor(data = {}) {
     super(data);
-    this.id = data.id;
     this.channel = data.channel;
     this.type = data.type;
     this.author = data.author;

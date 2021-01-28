@@ -3,7 +3,6 @@ import BaseModel from './base';
 export default class MemberModel extends BaseModel {
   constructor(data = {}) {
     super(data);
-    this.id = data.id;
     this.user = data.user;
     this.group = data.group;
     this.type = data.type;

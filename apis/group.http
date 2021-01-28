@@ -30,6 +30,8 @@ Content-Type: application/json
 
 ###
 @name = 列出群组消息
-GET {{base}}/group/{{group}}/messages?limit=50
+GET {{base}}/group/{{group}}/messages?limit=30
 
+###
+GET {{base}}/group/{{group}}/messages?limit=2&before=32159828150580
 ###
