@@ -41,13 +41,14 @@ class MessageStore {
    * @param groupId
    * @param meId
    * @param content
+   * @param type
    */
-  createGroupMessage = async (groupId, meId, content) => {
+  createMessage = async (groupId, meId, content, type) => {
     const id = Flake.generate();
     const now = new Date();
     const info = {
       channel: groupId,
-      type: MessageType.GROUP,
+      type,
       author: meId,
       content,
       timestamp: now,

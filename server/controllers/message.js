@@ -1,5 +1,5 @@
 import MessageStore from '../databases/message';
-import { MemberType, MessageType } from '../constants';
+import { MemberType, MessageType, RelationType } from '../constants';
 import msg from '../utils/socket';
 
 class MessageController {
@@ -15,7 +15,12 @@ class MessageController {
     if (member.stop > new Date()) {
       ctx.throw(500, 'forbidden to talk');
     }
-    const rs = await MessageStore.createGroupMessage(group.id, me.id, content);
+    const rs = await MessageStore.createMessage(
+      group.id,
+      me.id,
+      content,
+      MessageType.GROUP
+    );
     if (!rs) ctx.throw(500, 'create message failed');
     msg.to(group.id).emit('new msg', rs);
     ctx.body = rs;
@@ -43,6 +48,26 @@ class MessageController {
     if (typeof messages === 'undefined' || messages.length <= 0)
       ctx.throw(400, 'empty');
     ctx.body = messages;
+  };
+
+  createDirectMessage = async (ctx) => {
+    let { content } = ctx.request.body;
+    // TODO: content validator
+    if (!content) ctx.throw(400, 'empty message content');
+    const { me, relation } = ctx;
+    const t = relation.type;
+    if (t !== RelationType.FRIEND && t !== RelationType.TEMPORARY) {
+      ctx.throw(403, 'permission denied');
+    }
+    const rs = await MessageStore.createMessage(
+      relation.id,
+      me.id,
+      content,
+      MessageType.DIRECT
+    );
+    if (!rs) ctx.throw(500, 'create message failed');
+    msg.to(relation.id).emit('new msg', rs);
+    ctx.body = rs;
   };
 }
 

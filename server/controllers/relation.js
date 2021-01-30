@@ -21,6 +21,17 @@ class RelationController {
     if (!rs) ctx.throw(500, 'create relation faild');
     ctx.status = 204;
   };
+
+  listAll = async (ctx) => {
+    const { me } = ctx;
+    let tmp;
+    let rs = await RelationStore.listRelationships(me.id);
+    rs.forEach((r) => {
+      tmp = r.users[0].id === me.id ? r.users[1] : r.users[0];
+      r.users = tmp;
+    });
+    ctx.body = rs;
+  };
 }
 
 export default new RelationController();

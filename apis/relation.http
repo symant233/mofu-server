@@ -11,3 +11,17 @@ POST {{base}}/relation/create/{{user}}
 ###
 @name = 详情
 GET {{base}}/relation/{{relation}}/detail
+
+###
+@name = 列出所有我的关系
+GET {{base}}/relation/@my
+###
+
+###
+@name = 发送私聊消息
+POST {{base}}/relation/{{relation}}/message
+Content-Type: application/json
+
+{
+  "content": "test"
+}

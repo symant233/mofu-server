@@ -44,7 +44,7 @@ class RelationStore {
     return r.result.ok === 1;
   };
 
-  // TODO 以下是未对接方法
+  // TODO 未对接方法
   /**
    * update relation type
    * @param relationId
@@ -58,14 +58,15 @@ class RelationStore {
     return r.result.ok === 1;
   };
 
+  // TODO 未对接方法
   deleteRelation = async (relationId) => {
     const r = await db.relations.deleteOne({ _id: relationId });
     return r.result.ok === 1;
   };
 
-  listRelationships = async (me) => {
+  listRelationships = async (meId) => {
     const cursor = await db.relations.aggregate([
-      { $match: { users: me.id } },
+      { $match: { users: meId } },
       {
         $lookup: {
           from: 'users',
@@ -78,7 +79,7 @@ class RelationStore {
             },
             { $project: UserModel.projection },
           ],
-          as: 'user',
+          as: 'users',
         },
       },
       { $project: RelationModal.projection },

@@ -4,6 +4,7 @@ import MemberModel from '../models/member';
 import UserModel from '../models/user';
 import jwt from 'jsonwebtoken';
 import db from './mongo';
+import RelationModel from '../models/relation';
 
 const io = Server();
 const msg = io.of('/msg');
@@ -13,24 +14,34 @@ function logger(message) {
 }
 
 async function _join(socket) {
-  logger(`Login: ${socket.userId}`);
-  const cursor = db.members.aggregate([
+  // 加入群聊
+  let cursor = db.members.aggregate([
     { $match: { user: socket.userId } },
     { $project: MemberModel.projection },
   ]);
   while (await cursor.hasNext()) {
-    const data = await cursor.next();
+    let data = await cursor.next();
     socket.join(data.group);
-    logger(`Join: ${socket.userId} -> ${data.group}`);
+    logger(`Join Group: ${socket.userId} -> ${data.group}`);
+  }
+  // 加入私聊
+  cursor = db.relations.aggregate([
+    { $match: { users: socket.userId } },
+    { $project: RelationModel.projection },
+  ]);
+  while (await cursor.hasNext()) {
+    let data = await cursor.next();
+    socket.join(data.id);
+    logger(`Join DM: ${socket.userId} -> ${data.id}`);
   }
 }
 
 async function _me(socket) {
+  logger(`Login: ${socket.userId}`);
   let user = await db.users.findOne({ _id: socket.userId });
   user = new UserModel(user).parse();
-  socket.me = { id: socket.userId, ...user };
+  socket.me = user;
   socket.join(socket.userId);
-  // socket.emit('me', socket.me);
 }
 
 msg.on('connection', (socket) => {
@@ -40,6 +51,7 @@ msg.on('connection', (socket) => {
   }, 95000);
 
   if (process.env.NODE_ENV === 'development') {
+    // 开发环境绕过 auth
     socket.on('dev', (userId) => {
       // 把 userId 存在 socket session 中
       socket.userId = userId.toString();

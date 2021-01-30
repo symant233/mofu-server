@@ -16,7 +16,7 @@ class GroupController {
     const member = await MemberStore.create(me.id, group.id, MemberType.OWNER);
     if (!member) {
       GroupStore.destroy(group.id);
-      ctx.throw(500, 'create member failed');
+      ctx.throw(500, 'create member(owner) failed');
     }
     ctx.body = group;
   };
