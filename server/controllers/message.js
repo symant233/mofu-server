@@ -1,5 +1,5 @@
 import MessageStore from '../databases/message';
-import { MemberType, MessageType, RelationType } from '../constants';
+import { MemberType, ChannelType, RelationType } from '../constants';
 import msg from '../utils/socket';
 
 class MessageController {
@@ -19,7 +19,7 @@ class MessageController {
       group.id,
       me.id,
       content,
-      MessageType.GROUP
+      ChannelType.GROUP
     );
     if (!rs) ctx.throw(500, 'create message failed');
     msg.to(group.id).emit('new msg', rs);
@@ -39,7 +39,7 @@ class MessageController {
       method = 'after';
     }
     limit = Math.max(Math.min(100, limit), 1); // 1~100
-    const messages = await MessageStore.listGroupMessages(
+    const messages = await MessageStore.listMessages(
       group.id,
       messageId,
       limit,
@@ -63,11 +63,35 @@ class MessageController {
       relation.id,
       me.id,
       content,
-      MessageType.DIRECT
+      ChannelType.DIRECT
     );
     if (!rs) ctx.throw(500, 'create message failed');
     msg.to(relation.id).emit('new msg', rs);
     ctx.body = rs;
+  };
+
+  listDirectMessages = async (ctx) => {
+    const { me, relation } = ctx;
+    let { before, after, limit = 50 } = ctx.query;
+    let messageId = null;
+    let method = 'before';
+    if (typeof before !== 'undefined' && before.length > 0) {
+      messageId = before;
+      method = 'before';
+    } else if (typeof after !== 'undefined' && after.length > 0) {
+      messageId = after;
+      method = 'after';
+    }
+    limit = Math.max(Math.min(100, limit), 1); // 1~100
+    const messages = await MessageStore.listMessages(
+      relation.id,
+      messageId,
+      limit,
+      method
+    );
+    if (typeof messages === 'undefined' || messages.length <= 0)
+      ctx.throw(400, 'empty');
+    ctx.body = messages;
   };
 }
 

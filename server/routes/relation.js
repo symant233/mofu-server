@@ -36,4 +36,11 @@ router.post(
   MessageController.createDirectMessage
 );
 
+router.get(
+  'list direct messages',
+  '/relation/:relation/messages',
+  jwt, me, relation,
+  MessageController.listDirectMessages
+);
+
 export default router;

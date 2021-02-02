@@ -7,7 +7,7 @@ export const MemberType = Object.freeze({
   // ROBOT: 5, // 机器人
 });
 
-export const MessageType = Object.freeze({
+export const ChannelType = Object.freeze({
   GROUP: 1,
   DIRECT: 2,
 });

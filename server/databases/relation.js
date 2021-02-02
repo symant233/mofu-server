@@ -58,12 +58,6 @@ class RelationStore {
     return r.result.ok === 1;
   };
 
-  // TODO 未对接方法
-  deleteRelation = async (relationId) => {
-    const r = await db.relations.deleteOne({ _id: relationId });
-    return r.result.ok === 1;
-  };
-
   listRelationships = async (meId) => {
     const cursor = await db.relations.aggregate([
       { $match: { users: meId } },

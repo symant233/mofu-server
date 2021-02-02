@@ -95,7 +95,7 @@ msg.on('connection', (socket) => {
   socket.on('join a group', (groupId) => {
     // ! 需要验证是否为群组成员
     socket.join(groupId);
-    logger(`Join: ${socket.userId} -> ${groupId}`);
+    logger(`Join Group: ${socket.userId} -> ${groupId}`);
   });
 });
 

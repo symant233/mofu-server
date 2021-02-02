@@ -1,7 +1,7 @@
 import db from '../utils/mongo';
 import MessageModel from '../models/message';
 import UserModel from '../models/user';
-import { MessageType } from '../constants';
+import { ChannelType } from '../constants';
 import Flake from '../utils/flake';
 import UserStore from './user';
 
@@ -38,16 +38,16 @@ class MessageStore {
   };
 
   /**
-   * @param groupId
+   * @param channelId
    * @param meId
    * @param content
    * @param type
    */
-  createMessage = async (groupId, meId, content, type) => {
+  createMessage = async (channelId, meId, content, type) => {
     const id = Flake.generate();
     const now = new Date();
     const info = {
-      channel: groupId,
+      channel: channelId,
       type,
       author: meId,
       content,
@@ -59,7 +59,7 @@ class MessageStore {
     return { id, ...info, author: user };
   };
 
-  listGroupMessages = async (groupId, messageId, limit, method) => {
+  listMessages = async (channelId, messageId, limit, method) => {
     let targetId = messageId;
     if (!targetId) {
       if (method === 'before') targetId = '999999999999999';
@@ -83,7 +83,7 @@ class MessageStore {
       .aggregate([
         {
           $match: {
-            channel: groupId,
+            channel: channelId,
             _id: { [op]: targetId },
           },
         },
