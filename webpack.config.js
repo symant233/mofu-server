@@ -4,10 +4,10 @@ module.exports = {
   target: 'node',
   entry: ['@babel/polyfill', './server/index.js'],
   output: {
-    filename: 'app.bundle.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  mode: 'development',
+  mode: 'production',
   module: {
     rules: [
       {

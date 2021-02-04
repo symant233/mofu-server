@@ -3,6 +3,12 @@ import AuthController from '../controllers/auth';
 
 const router = new Router();
 
+router.get(
+  'environment',
+  '/env',
+  AuthController.env
+);
+
 router.post(
   'register',
   '/auth/register',

@@ -43,6 +43,10 @@ class AuthController {
     if (!user) ctx.throw(500, 'login failed');
     ctx.body = { ...user, token };
   };
+
+  env = async (ctx) => {
+    ctx.body = { env: process.env.NODE_ENV };
+  };
 }
 
 export default new AuthController();

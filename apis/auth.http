@@ -34,3 +34,5 @@ Content-Type: application/json
 }
 
 ###
+
+GET {{base}}/env

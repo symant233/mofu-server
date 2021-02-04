@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import db from './mongo';
 import RelationModel from '../models/relation';
 
-const io = Server();
+const io = Server({ serveClient: false });
 const msg = io.of('/msg');
 
 function logger(message) {

@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/symant233/mofu-server",
   "scripts": {
-    "prod": "cross-env NODE_ENV=production nodemon -r esm server/",
+    "prod": "npm run build && npm run bundle",
     "dev": "cross-env NODE_ENV=development nodemon -r esm server/",
     "test": "cross-env NODE_ENV=development node -r esm tests/",
-    "bundle": "node -r esm dist/app.bundle.js",
-    "build": "rm dist/* ; npx webpack"
+    "bundle": "node -r esm dist/",
+    "build": "npx webpack"
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
