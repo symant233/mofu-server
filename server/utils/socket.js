@@ -97,6 +97,12 @@ msg.on('connection', (socket) => {
     socket.join(groupId);
     logger(`Join Group: ${socket.userId} -> ${groupId}`);
   });
+
+  socket.on('join a relation', (relationId) => {
+    // ! 需要验证是否为关系成员
+    socket.join(relationId);
+    logger(`Join DM: ${socket.userId} -> ${relationId}`);
+  });
 });
 
 io.listen(socketPort);

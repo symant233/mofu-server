@@ -1,5 +1,5 @@
 import RelationStore from '../databases/relation';
-
+import msg from '../utils/socket';
 import { RelationType } from '../constants';
 
 class RelationController {
@@ -11,6 +11,7 @@ class RelationController {
 
   create = async (ctx) => {
     const { me, user } = ctx;
+    if (me.id === user.id) ctx.throw(500, 'cannot friend yourself');
     const relation = await RelationStore.findRelation(me.id, user.id);
     if (relation) ctx.throw(500, 'relation already exists');
     const rs = await RelationStore.creatRelation(
@@ -19,6 +20,8 @@ class RelationController {
       RelationType.TEMPORARY
     );
     if (!rs) ctx.throw(500, 'create relation faild');
+    msg.to(me.id).emit('relation created', { ...rs, users: user });
+    msg.to(user.id).emit('relation created', { ...rs, users: me });
     ctx.status = 204;
   };
 

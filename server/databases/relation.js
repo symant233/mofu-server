@@ -7,12 +7,14 @@ import Flake from '../utils/flake';
 class RelationStore {
   get = async (relationId) => {
     const r = await db.relations.findOne({ _id: relationId });
+    if (!r) return;
     return new RelationModal(r).parse();
   };
 
   findRelation = async (meId, userId) => {
     const users = [meId, userId].sort();
     const find = await db.relations.findOne({ users });
+    if (!find) return;
     return new RelationModal(find).parse();
   };
 
@@ -41,7 +43,12 @@ class RelationStore {
       users: [me.id, user.id].sort(),
       since: now,
     });
-    return r.result.ok === 1;
+    const relation = {
+      id,
+      type,
+      since: now,
+    };
+    return relation;
   };
 
   // TODO 未对接方法

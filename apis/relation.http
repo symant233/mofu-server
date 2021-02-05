@@ -1,7 +1,7 @@
 # router relation
 @base = http://localhost:3000/api/v1
 @user = 10290909060497
-@relation = 34056730500279
+@relation = 34749064807952
 
 ###
 @name = 创建关系

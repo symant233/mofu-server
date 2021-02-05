@@ -2,7 +2,7 @@ import snakecase from 'snakecase-keys';
 
 export default class BaseModel {
   constructor(data = {}) {
-    this.id = data.id || data._id;
+    this.id = data._id || data.id;
   }
 
   // mongodb base projection
