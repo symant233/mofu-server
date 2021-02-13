@@ -1,5 +1,5 @@
 import Server from 'socket.io';
-import { socketPort, jwtSecret } from '../config';
+import { jwtSecret } from '../config';
 import MemberModel from '../models/member';
 import UserModel from '../models/user';
 import jwt from 'jsonwebtoken';
@@ -7,7 +7,6 @@ import db from './mongo';
 import RelationModel from '../models/relation';
 
 const io = Server({ serveClient: false });
-const msg = io.of('/msg');
 
 function logger(message) {
   console.log('  --- SOCKET', message);
@@ -44,7 +43,7 @@ async function _me(socket) {
   socket.join(socket.userId);
 }
 
-msg.on('connection', (socket) => {
+io.on('connection', (socket) => {
   // 防止空连接
   setTimeout(() => {
     if (!socket.userId) socket.disconnect(true);
@@ -105,6 +104,4 @@ msg.on('connection', (socket) => {
   });
 });
 
-io.listen(socketPort);
-console.log(`✨ socket running @ http://localhost:${socketPort}`);
-export default msg;
+export default io;

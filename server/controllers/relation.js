@@ -1,5 +1,5 @@
 import RelationStore from '../databases/relation';
-import msg from '../utils/socket';
+import io from '../utils/socket';
 import { RelationType } from '../constants';
 
 class RelationController {
@@ -20,8 +20,8 @@ class RelationController {
       RelationType.TEMPORARY
     );
     if (!rs) ctx.throw(500, 'create relation faild');
-    msg.to(me.id).emit('relation created', { ...rs, users: user });
-    msg.to(user.id).emit('relation created', { ...rs, users: me });
+    io.to(me.id).emit('relation created', { ...rs, users: user });
+    io.to(user.id).emit('relation created', { ...rs, users: me });
     ctx.status = 204;
   };
 

@@ -1,6 +1,6 @@
 import MemberStore from '../databases/member';
 import { MemberType } from '../constants';
-import msg from '../utils/socket';
+import io from '../utils/socket';
 
 class MemberController {
   detail = async (ctx) => {
@@ -23,7 +23,7 @@ class MemberController {
     const rs = await MemberStore.create(me.id, group.id, MemberType.NORMAL);
     if (!rs) ctx.throw(500, 'request member failed');
     // socket broadcast
-    msg.to(me.id).emit('group join', group);
+    io.to(me.id).emit('group join', group);
     ctx.body = rs;
   };
 

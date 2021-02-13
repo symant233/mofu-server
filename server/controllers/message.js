@@ -1,6 +1,6 @@
 import MessageStore from '../databases/message';
 import { MemberType, ChannelType, RelationType } from '../constants';
-import msg from '../utils/socket';
+import io from '../utils/socket';
 
 class MessageController {
   createGroupMessage = async (ctx) => {
@@ -22,7 +22,7 @@ class MessageController {
       ChannelType.GROUP
     );
     if (!rs) ctx.throw(500, 'create message failed');
-    msg.to(group.id).emit('new msg', rs);
+    io.to(group.id).emit('new msg', rs);
     ctx.body = rs;
   };
 
@@ -66,7 +66,7 @@ class MessageController {
       ChannelType.DIRECT
     );
     if (!rs) ctx.throw(500, 'create message failed');
-    msg.to(relation.id).emit('new msg', rs);
+    io.to(relation.id).emit('new msg', rs);
     ctx.body = rs;
   };
 

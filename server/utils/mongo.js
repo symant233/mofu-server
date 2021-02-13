@@ -1,27 +1,23 @@
 import { MongoClient } from 'mongodb';
+import { mongoURL } from '../config';
 
 class Mongo {
-  connect(url) {
-    this.client = new MongoClient(url, {
+  constructor() {
+    this.client = new MongoClient(mongoURL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    this.client.connect(async (err, result) => {
-      if (!err) {
-        console.log(`✅ MongoDB connected.`);
-      } else {
-        console.log(`❌ MongoDB connect failed: ${err}.`);
-        return;
-      }
-      this.mongo = this.client.db();
-      // collection alias:
-      this.users = this.mongo.collection('users');
-      this.groups = this.mongo.collection('groups');
-      this.members = this.mongo.collection('members');
-      this.messages = this.mongo.collection('messages');
-      this.relations = this.mongo.collection('relations');
-      await this.createIndexes();
-    });
+  }
+
+  async init() {
+    this.mongo = this.client.db();
+    // collection alias:
+    this.users = this.mongo.collection('users');
+    this.groups = this.mongo.collection('groups');
+    this.members = this.mongo.collection('members');
+    this.messages = this.mongo.collection('messages');
+    this.relations = this.mongo.collection('relations');
+    await this.createIndexes();
   }
 
   async createIndexes() {
