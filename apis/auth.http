@@ -1,5 +1,5 @@
 # router auth
-@base = http://localhost:3000/api
+@base = http://localhost:3000
 # 使用注册或登入后会自动设置 cookie token
 
 ###

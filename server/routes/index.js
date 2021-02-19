@@ -1,4 +1,3 @@
-import { apiPrefix } from '../config';
 import auth from './auth';
 import user from './user';
 import group from './group';
@@ -15,10 +14,6 @@ const routers = [
 
 function routing(app) {
   routers.forEach((router) => {
-    // add router prefix for all routers
-    if (apiPrefix) {
-      router.prefix(`/${apiPrefix}`);
-    }
     router.allowedMethods({ throw: true });
     app.use(router.routes());
   });

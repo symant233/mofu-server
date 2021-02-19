@@ -1,5 +1,5 @@
 # router member
-@base = http://localhost:3000/api
+@base = http://localhost:3000
 @member = 10474362079724
 @member2 = 10830516388501
 @group = 10474362077060
