@@ -53,10 +53,10 @@ db.client.connect(async (err, result) => {
 
   routing(app);
   app.listen(port, () => {
-    console.log(`⭐ mofu running @ http://localhost:${port}`);
+    console.log(`♒ mofu-server running @ port ${port}`);
   });
 
   // 启动 socket server
   io.listen(socketPort);
-  console.log(`✨ socket running @ http://localhost:${socketPort}`);
+  console.log(`✨ socket running @ port ${socketPort}`);
 });

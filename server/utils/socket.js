@@ -44,11 +44,6 @@ async function _me(socket) {
 }
 
 io.on('connection', (socket) => {
-  // 防止空连接
-  setTimeout(() => {
-    if (!socket.userId) socket.disconnect(true);
-  }, 95000);
-
   if (process.env.NODE_ENV === 'development') {
     // 开发环境绕过 auth
     socket.on('dev', (userId) => {
