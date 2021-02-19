@@ -1,5 +1,5 @@
 # router relation
-@base = http://localhost:3000/api/v1
+@base = http://localhost:3000/api
 @user = 10290909060497
 @relation = 34749064807952
 
