@@ -45,7 +45,7 @@ class AuthController {
   };
 
   env = async (ctx) => {
-    ctx.body = { env: process.env.NODE_ENV };
+    ctx.body = { env: process.env.NODE_ENV, time: new Date().getTime() };
   };
 }
 

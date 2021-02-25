@@ -1,6 +1,7 @@
 ## mofu-server
 
-development: (Node >= v12)
+### Development
+Require Node.js v12.x LTS
 
 ```bash
 npm install # download all dependencies
@@ -14,7 +15,7 @@ npm run dev # start server (dev)
 
 Now server will start on localhost port `3000`.
 
-Api information turn to folder `./apis`, use VSCode extension `REST Client` to use it.
+Api information refer to folder `./apis`, get VSCode extension `REST Client` to use it.
 
 More documents are in folder `./docs`
 
