@@ -14,8 +14,17 @@ class AuditStore {
     return true;
   };
 
-  listLatest = async () => {
-    const rs = await db.audits.find().sort({ _id: -1 }).limit(25);
+  listPage = async (page = 1) => {
+    if (page < 1) page = 1;
+    const cur = await db.audits
+      .find({}, { _id: 0 }) // hide _id field
+      .sort({ _id: -1 }) // sort by _id desc
+      .limit(25) // page limit
+      .skip((page - 1) * 25); // current page
+    const rs = [];
+    while (await cur.hasNext()) {
+      rs.push(await cur.next());
+    }
     return rs;
   };
 }

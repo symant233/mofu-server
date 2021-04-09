@@ -11,8 +11,9 @@ audits_type:
     2 wrong passwd or email
   30: database injection
   4x: user events
-    1 invalid path
+    1 invalid jwt
     2 invalid input
+    4 invalid path
   50: server failure
 
 ```js

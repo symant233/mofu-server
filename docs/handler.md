@@ -21,3 +21,10 @@ app.on('error', (err, ctx) => {
   */
 });
 ```
+### string
+```js
+if (typeof myVar === 'string' || myVar instanceof String)
+// it's a string
+else
+// it's something else
+```

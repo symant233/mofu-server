@@ -52,6 +52,13 @@ class AuthController {
   env = async (ctx) => {
     ctx.body = { env: process.env.NODE_ENV, time: new Date().getTime() };
   };
+
+  audit = async (ctx) => {
+    let { passwd, page = 1 } = ctx.request.body;
+    if (passwd !== jwtSecret) ctx.throw(401, 'invalid audit passwd');
+    const rs = await AuditStore.listPage(page);
+    ctx.body = rs;
+  };
 }
 
 export default new AuthController();

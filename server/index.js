@@ -15,7 +15,7 @@ const handler = async (ctx, next) => {
   try {
     await next();
     if (ctx.status === 404) {
-      AuditStore.create(ip, 41, 'invalid path', ctx.request.href);
+      AuditStore.create(ip, 44, 'invalid path', ctx.request.href);
     }
   } catch (err) {
     let result = {
