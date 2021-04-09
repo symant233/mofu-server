@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from '../config';
 import UserStore from '../databases/user';
+import AuditStore from '../databases/audit';
 
 class AuthController {
   _sign = (id) => {
@@ -35,12 +36,16 @@ class AuthController {
     let user;
     if (email && passwd) {
       const result = await UserStore.verifyPasswd(email, passwd);
-      if (!result) ctx.throw(400, 'email not registered or wrong password');
+      if (!result) {
+        AuditStore.create(ctx.request.ip, 22, 'login failed', email);
+        ctx.throw(400, 'email not registered or wrong password');
+      }
       user = await UserStore.findEmail(email);
       token = this._sign(user.id);
       ctx.cookies.set('token', token, { sameSite: 'lax' });
     }
     if (!user) ctx.throw(500, 'login failed');
+    AuditStore.create(ctx.request.ip, 21, 'login', email);
     ctx.body = { ...user, token };
   };
 

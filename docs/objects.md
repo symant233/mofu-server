@@ -4,6 +4,16 @@ avatar: String link
 
 id: Flake String id
 
+audits_type:
+  10: unclassified
+  2x: login events
+    1 success
+    2 wrong passwd or email
+  30: database injection
+  4x: user events
+    1 invalid path
+    2 invalid input
+  50: server failure
 
 ```js
 User {
@@ -57,8 +67,9 @@ Audit {
   _id: BSON,
   ip: String,
   type: Number,
-  count: Number,
-  lastRecord: Timestamp,
+  description: String,
+  payload: String,
+  date: Timestamp,
 }
 ```
 
@@ -110,10 +121,11 @@ Message {
 }
 
 Audit {
-  id: BSON,
+  _id: BSON,
   ip: String,
   type: Number,
-  count: Number,
-  lastRecord: Timestamp,
+  description: String,
+  payload: String,
+  date: Timestamp,
 }
 ```
