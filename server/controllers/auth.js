@@ -53,11 +53,17 @@ class AuthController {
     ctx.body = { env: process.env.NODE_ENV, time: new Date().getTime() };
   };
 
+  // ! audit controll start
+
   audit = async (ctx) => {
-    let { passwd, page = 1 } = ctx.request.body;
-    if (passwd !== jwtSecret) ctx.throw(401, 'invalid audit passwd');
+    let { page = 1 } = ctx.query;
     const rs = await AuditStore.listPage(page);
     ctx.body = rs;
+  };
+
+  auditCount = async (ctx) => {
+    const rs = await AuditStore.count();
+    ctx.body = { count: rs };
   };
 }
 

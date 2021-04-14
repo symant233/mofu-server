@@ -27,6 +27,11 @@ class AuditStore {
     }
     return rs;
   };
+
+  count = async () => {
+    const rs = await db.audits.count();
+    return rs;
+  };
 }
 
 export default new AuditStore();

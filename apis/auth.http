@@ -37,10 +37,7 @@ Content-Type: application/json
 GET {{base}}/env
 
 ###
-POST {{base}}/audit
-Content-Type: application/json
+GET {{base}}/audit?page=1
 
-{
-	"passwd": "mofumofuServer!qwq",
-	"page": 1
-}
+###
+GET {{base}}/audit/count
