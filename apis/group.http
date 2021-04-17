@@ -33,5 +33,5 @@ Content-Type: application/json
 GET {{base}}/group/{{group}}/messages?limit=30
 
 ###
-GET {{base}}/group/{{group}}/messages?limit=2&before=32159828150580
+GET {{base}}/group/{{group}}/messages?limit=50&before=10838755241292
 ###

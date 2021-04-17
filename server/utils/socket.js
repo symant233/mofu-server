@@ -36,11 +36,12 @@ async function _join(socket) {
 }
 
 async function _me(socket) {
-  logger(`Login: ${socket.userId}`);
   let user = await db.users.findOne({ _id: socket.userId });
   user = new UserModel(user).parse();
+  if (!user) socket.close();
   socket.me = user;
   socket.join(socket.userId);
+  logger(`Login: ${socket.userId}`);
 }
 
 io.on('connection', (socket) => {

@@ -12,6 +12,12 @@ class AuthController {
     return jwt.verify(token, jwtSecret);
   };
 
+  _setCookie = (ctx) => {
+    if (process.env.NODE_ENV === 'development') {
+      ctx.cookies.set('token', token, { sameSite: 'lax' });
+    }
+  };
+
   register = async (ctx) => {
     // 处理传入数据
     const { email, passwd, nick } = ctx.request.body;
@@ -26,7 +32,7 @@ class AuthController {
 
     // 返回 token 设置 cookies
     const token = this._sign(user.id);
-    ctx.cookies.set('token', token, { sameSite: 'lax' });
+    this._setCookie(ctx);
     ctx.body = { ...user, token };
   };
 
@@ -42,7 +48,7 @@ class AuthController {
       }
       user = await UserStore.findEmail(email);
       token = this._sign(user.id);
-      ctx.cookies.set('token', token, { sameSite: 'lax' });
+      this._setCookie(ctx);
     }
     if (!user) ctx.throw(500, 'login failed');
     AuditStore.create(ctx.request.ip, 21, 'login', email);

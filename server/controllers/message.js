@@ -45,8 +45,6 @@ class MessageController {
       limit,
       method
     );
-    if (typeof messages === 'undefined' || messages.length <= 0)
-      ctx.throw(400, 'empty');
     ctx.body = messages;
   };
 
@@ -89,8 +87,6 @@ class MessageController {
       limit,
       method
     );
-    if (typeof messages === 'undefined' || messages.length <= 0)
-      ctx.throw(400, 'empty');
     ctx.body = messages;
   };
 }
