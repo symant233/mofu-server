@@ -12,7 +12,7 @@ class AuthController {
     return jwt.verify(token, jwtSecret);
   };
 
-  _setCookie = (ctx) => {
+  _setCookie = (ctx, token) => {
     if (process.env.NODE_ENV === 'development') {
       ctx.cookies.set('token', token, { sameSite: 'lax' });
     }
@@ -32,14 +32,13 @@ class AuthController {
 
     // 返回 token 设置 cookies
     const token = this._sign(user.id);
-    this._setCookie(ctx);
+    this._setCookie(ctx, token);
     ctx.body = { ...user, token };
   };
 
   handleLogin = async (ctx) => {
-    let token = ctx.cookies.get('token');
     const { email, passwd } = ctx.request.body;
-    let user;
+    let user, token;
     if (email && passwd) {
       const result = await UserStore.verifyPasswd(email, passwd);
       if (!result) {
@@ -48,7 +47,7 @@ class AuthController {
       }
       user = await UserStore.findEmail(email);
       token = this._sign(user.id);
-      this._setCookie(ctx);
+      this._setCookie(ctx, token);
     }
     if (!user) ctx.throw(500, 'login failed');
     AuditStore.create(ctx.request.ip, 21, 'login', email);
