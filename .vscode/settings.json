@@ -4,5 +4,5 @@
         "editor.formatOnSave": true
     },
     "rest-client.enableCustomVariableReferencesCodeLens": false,
-    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\wsl.exe"
 }

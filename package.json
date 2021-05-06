@@ -28,7 +28,7 @@
     "@babel/polyfill": "^7.10.1",
     "@koa/cors": "^3.0.0",
     "camelcase-keys": "^6.2.2",
-    "cross-env": "^7.0.2",
+    "cross-env": "^7.0.3",
     "esm": "^3.2.25",
     "jsonfile": "^6.0.1",
     "jsonwebtoken": "^8.5.1",
@@ -43,7 +43,7 @@
     "nodemon": "^2.0.3",
     "saslprep": "^1.0.3",
     "snakecase-keys": "^3.2.0",
-    "socket.io": "^2.3.0"
+    "socket.io": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
