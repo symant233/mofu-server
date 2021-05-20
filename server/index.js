@@ -30,6 +30,11 @@ const handler = async (ctx, next) => {
   }
 };
 
+const getBlacklist = async () => {
+  const rs = await AuditStore.listBlocked();
+  return rs;
+};
+
 db.client.connect(async (err, result) => {
   if (err) {
     console.log(`❌ MongoDB connect failed: ${err}.`);
@@ -37,6 +42,7 @@ db.client.connect(async (err, result) => {
   }
   console.log(`✅ MongoDB connected.`);
   await db.init();
+  const blacklist = await getBlacklist();
 
   // 连接成功, 启动服务
   const app = new Koa();
@@ -53,7 +59,9 @@ db.client.connect(async (err, result) => {
   app.use(helmet.hidePoweredBy({ setTo: 'mofu-server' }));
   app.use(koaBody()); // 支持json请求数据
   app.use((ctx, next) => {
-    ctx.request.body = mongoSanitize(ctx.request.body, ctx.request.ip);
+    const ip = ctx.request.ip;
+    if (blacklist.has(ip)) ctx.throw(403, 'IP blocked');
+    ctx.request.body = mongoSanitize(ctx.request.body, ip);
     return next();
   });
   app.use(handler);

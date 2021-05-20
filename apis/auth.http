@@ -41,3 +41,11 @@ GET {{base}}/audit?page=1
 
 ###
 GET {{base}}/audit/count
+
+###
+POST {{base}}/inject
+Content-Type: application/json
+
+{
+	"user": "10473831864042"
+}

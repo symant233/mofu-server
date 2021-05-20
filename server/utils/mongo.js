@@ -18,6 +18,7 @@ class Mongo {
     this.messages = this.mongo.collection('messages');
     this.relations = this.mongo.collection('relations');
     this.audits = this.mongo.collection('audits');
+    this.blacklist = this.mongo.collection('blacklist');
     await this.createIndexes();
   }
 

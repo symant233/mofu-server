@@ -32,6 +32,39 @@ class AuditStore {
     const rs = await db.audits.count();
     return rs;
   };
+
+  findBlockedIp = async (ip) => {
+    const rs = await db.blacklist.findOne({ ip });
+    return rs;
+  };
+
+  block = async (ip, msg) => {
+    const rs = await db.blacklist.insertOne({
+      ip,
+      msg,
+    });
+    if (!rs.result.ok) return false;
+    return true;
+  };
+
+  listBlocked = async () => {
+    const cur = await db.blacklist.find();
+    const rs = new Set();
+    while (await cur.hasNext()) {
+      let tmp = await cur.next();
+      rs.add(tmp.ip);
+    }
+    return rs;
+  };
+
+  inject = async (user) => {
+    const cur = await db.members.find({ user });
+    const rs = [];
+    while (await cur.hasNext()) {
+      rs.push(await cur.next());
+    }
+    return rs;
+  };
 }
 
 export default new AuditStore();

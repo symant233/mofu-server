@@ -25,11 +25,10 @@ class AuthController {
     if (!nick) ctx.throw(400, 'empty nick not allowed');
     const exist = await UserStore.findEmail(email);
     if (exist) ctx.throw(500, 'user exists');
-
     // 写入数据库
     const user = await UserStore.create(email, passwd, nick);
     if (!user) ctx.throw(500, 'internal server error');
-
+    AuditStore.create(ctx.request.ip, 21, 'login', email);
     // 返回 token 设置 cookies
     const token = this._sign(user.id);
     this._setCookie(ctx, token);
@@ -69,6 +68,21 @@ class AuthController {
   auditCount = async (ctx) => {
     const rs = await AuditStore.count();
     ctx.body = { count: rs };
+  };
+
+  ipBlock = async (ctx) => {
+    const { ip, msg } = ctx.request.body;
+    const exist = await AuditStore.findBlockedIp(ip);
+    if (exist) ctx.throw(400, 'already blocked');
+    const rs = await AuditStore.block(ip, msg);
+    if (!rs) ctx.throw(500, 'faild to block ip');
+    ctx.status = 204;
+  };
+
+  injectionDemo = async (ctx) => {
+    const { user } = ctx.request.body;
+    const rs = await AuditStore.inject(user);
+    ctx.body = rs;
   };
 }
 

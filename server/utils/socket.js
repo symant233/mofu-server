@@ -68,6 +68,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('typing', (channel) => {
+    if (!socket.me) return;
     socket.broadcast.to(channel).emit('typing', {
       nick: socket.me.nick,
       channel,
@@ -75,6 +76,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('stop typing', (channel) => {
+    if (!socket.me) return;
     socket.broadcast.to(channel).emit('stop typing', {
       nick: socket.me.nick,
       channel,
