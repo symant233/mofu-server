@@ -27,6 +27,5 @@ POST {{base}}/relation/{{relation}}/message
 Content-Type: application/json
 
 {
-  "content": "test",
-  "$where": "1 == 1"
+  "content": "test"
 }

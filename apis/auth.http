@@ -28,16 +28,16 @@ POST {{base}}/auth/register
 Content-Type: application/json
 
 {
-	"email": "mofu@gmail.com",
+	"email": "zjy@gmail.com",
 	"passwd": "mofumofu",
-	"nick": "mofu"
+	"nick": "zjy"
 }
 
 ###
 GET {{base}}/env
 
 ###
-GET {{base}}/audit?page=1
+GET {{base}}/audit?page=2
 
 ###
 GET {{base}}/audit/count

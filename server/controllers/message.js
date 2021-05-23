@@ -27,7 +27,7 @@ class MessageController {
   };
 
   listGroupMessages = async (ctx) => {
-    const { me, group } = ctx;
+    const { group } = ctx;
     let { before, after, limit = 50 } = ctx.query;
     let messageId = null;
     let method = 'before';

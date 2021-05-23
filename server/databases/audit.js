@@ -29,7 +29,7 @@ class AuditStore {
   };
 
   count = async () => {
-    const rs = await db.audits.count();
+    const rs = await db.audits.countDocuments();
     return rs;
   };
 

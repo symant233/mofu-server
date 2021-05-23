@@ -12,7 +12,7 @@ router.post(
 );
 
 router.post(
-  'email & token login',
+  'email login',
   '/auth/login',
   AuthController.handleLogin
 );

@@ -8,7 +8,7 @@ POST {{base}}/group
 Content-Type: application/json
 
 {
-  "name": "My Group 2"
+  "name": "test group"
 }
 
 ###
@@ -25,7 +25,7 @@ POST {{base}}/group/{{group}}/message
 Content-Type: application/json
 
 {
-  "content": "ccccccc"
+  "content": "测试"
 }
 
 ###
