@@ -37,7 +37,7 @@ db.client.connect(async (err, result) => {
   await db.init();
   let blacklist = await AuditStore.listBlocked();
   setInterval(() => {
-    blacklist = await AuditStore.listBlocked();
+    AuditStore.listBlocked().then((i) => (blacklist = i));
   }, 3600000); // 每小时自动刷新屏蔽列表
 
   // 连接成功, 启动服务
