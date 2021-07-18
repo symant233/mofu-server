@@ -4,7 +4,7 @@ class AuditStore {
   create = async (ip, type, description, payload) => {
     const now = new Date();
     const rs = await db.audits.insertOne({
-      ip,
+      ip: ip || '127.0.0.1',
       type,
       description,
       payload,

@@ -6,7 +6,11 @@ import jwt from 'jsonwebtoken';
 import db from './mongo';
 import RelationModel from '../models/relation';
 
-const io = Server({ serveClient: false, cors: { origin: '*' } });
+const io = Server({
+  serveClient: false,
+  path: '/ws',
+  cors: { origin: '*' },
+});
 
 function logger(message) {
   console.log('  --- SOCKET', message);

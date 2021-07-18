@@ -19,7 +19,6 @@ const handler = async (ctx, next) => {
   } catch (err) {
     let result = {
       status: err.__proto__.status || err.status,
-      // name: err.name,
       message: err.message,
     };
     AuditStore.create(ctx.request.ip, 50, 'server failure', err.message);
@@ -36,7 +35,10 @@ db.client.connect(async (err, result) => {
   }
   console.log(`✅ MongoDB connected.`);
   await db.init();
-  const blacklist = await AuditStore.listBlocked();
+  let blacklist = await AuditStore.listBlocked();
+  setInterval(() => {
+    blacklist = await AuditStore.listBlocked();
+  }, 3600000); // 每小时自动刷新屏蔽列表
 
   // 连接成功, 启动服务
   const app = new Koa();
