@@ -57,6 +57,10 @@ class AuthController {
     ctx.body = { env: process.env.NODE_ENV, time: new Date().getTime() };
   };
 
+  publicIP = async (ctx) => {
+    ctx.body = ctx.request.ip;
+  }
+
   // ! audit controll start
 
   audit = async (ctx) => {

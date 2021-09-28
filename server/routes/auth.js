@@ -24,6 +24,12 @@ router.get(
 );
 
 router.get(
+  'client public ip address',
+  '/ip',
+  AuthController.publicIP
+);
+
+router.get(
   'list audit log page',
   '/audit',
   jwt, audit,
